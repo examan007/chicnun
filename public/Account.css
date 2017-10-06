@@ -1,0 +1,76 @@
+﻿#Account {
+    margin-left: 2%;
+    margin-right: 2%;
+}
+#Account-Table {
+    width: 100%;
+    align-content: center;
+    font-size: x-large;
+}
+#Account-Form-Wrap {
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+.Account-Input {
+    color: white;
+    text-align: left;
+}
+.Account-Attribute {
+    text-align: right;
+    font-size: x-large;
+}
+.Account-Header {
+    text-align: center;
+}
+.Account-Button {
+    text-align: center;
+    width: 100%;
+}
+#Account-Data-Table {
+    table-layout:fixed;
+    width: 60%;
+    margin-left: 20%;
+}
+
+.Account-Model-Entry {
+  word-break: break-all;
+  user-select: all;
+  -webkit-user-select: text;    
+  -moz-user-select: all;    
+  -ms-user-select: text;      
+}
+.Account-Input-text {
+    text-align: left;
+    font-size: large;
+    width: 20em;
+}
+.Account-Input-text:hover {
+   color: white;
+   cursor: pointer;
+}
+.Account-Text-hidden {
+    color: lightgray;
+}
+.Account-Text-hidden:hover {
+   color: white;
+   cursor: pointer;
+}
+.Account-Alt-hidden {
+    display: none;
+    color: lightgray;
+}
+.Account-Alt-hidden:hover {
+   color: #000080;
+   cursor: pointer;
+}
+.Account-Input-checkbox {
+    display: none;
+}
+.Account-Text-checkbox {
+    color: lightgray;
+}
+.Account-Text-checkbox:hover {
+   color: #000080;
+   background-color: #2B65EC;
+   cursor: pointer;
+}

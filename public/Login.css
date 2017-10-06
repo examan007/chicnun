@@ -1,0 +1,19 @@
+﻿#Login {
+    margin-left: 2%;
+    margin-right: 2%;
+}
+#Login-Table {
+    width: 100%;
+    align-content: center;
+    display: table;
+}
+.Login-Input {
+    color: white;
+    text-align: left;
+}
+.Login-Attribute {
+    text-align: right;
+}
+.Login-Header {
+    text-align: center;
+}

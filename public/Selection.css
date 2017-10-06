@@ -1,0 +1,49 @@
+﻿#Selection
+{
+	color: #000080;
+#	color: #2B65EC;
+#  	color: #75sC938;
+	font-size: 2.5em;
+#    text-align: center;
+	font-family: HoneyScript;
+}
+#Selection-Parent-Table {
+    table-layout:fixed;
+    width: 100%;
+}
+#Selection-Table {
+    table-layout:fixed;
+    width: 100%;
+}
+.Selection-Template {
+    display: none;
+}
+.Selection-Instance {
+    width: 100%;
+}
+.Selection-Filter {
+    position: relative;
+    top: -1em;
+    color: lightgray;
+    max-width: 7em;
+    border-color: #8E35EF;
+}
+.Selection-Parameter {
+    width: 50%;
+}
+.Selection-Inputs {
+    visibility: hidden;
+}
+.Selection-Class
+{
+    padding-right: 2px;
+    max-height: 5em;
+}
+.Selection-Class:hover { 
+   color: #2B65EC;
+   cursor: pointer;
+}
+.Selection-Class:hover + .Selection-Inputs { 
+    visibility: visible;
+}
+

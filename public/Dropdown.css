@@ -1,0 +1,35 @@
+﻿button:focus {
+    outline:0;
+}
+#Dropdown {
+    position: absolute;
+    top: 34px;
+    z-index: 10;
+    margin-left: 2%;
+    width: 32%
+}
+.Dropdown-Instance-Search {
+    position: relative;
+    left: 1%;
+    width: 100%;
+}
+.Dropdown-Instance-Booking {
+    position: relative;
+    right: -100%;
+}
+.Dropdown-Instance-Account {
+    position: relative;
+    right: -200%;
+}
+.Dropdown-Button:hover {
+   color: #000080;
+   background-color: #2B65EC;
+   cursor: pointer;
+}
+.Dropdown-Button {
+    width: 100%;
+    background-color: #000080;
+    color: #8E35EF;
+    border-color: #8E35EF;
+    font-size: x-large;
+}

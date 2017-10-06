@@ -1,0 +1,117 @@
+﻿#Scope {
+	color: #000080;
+	font-family: 'Times New Roman';
+    font-size: xx-small;
+    width: 100%;
+}
+#Scope-Table {
+    position: relative;
+    table-layout:fixed;
+    border: 1px solid #000080;
+    margin-right: 0;
+    margin-left: 0;
+}
+#Scope-Table-Blank {
+    height:   40px;
+    visibility: hidden;
+}
+#inner-content-div {
+    background: transparent;
+    color: transparent;
+}
+#Scope-Table-Body {
+    table-layout:fixed;
+    border-collapse: collapse;
+    background: transparent;
+    color: transparent;
+    overflow-y:scroll;
+    border: 3px solid #008000;
+}
+#Scope-Table-Content {
+    table-layout:fixed;
+    border-collapse: collapse;
+    width: 100%;
+    background: transparent;
+}
+#Scope-Table-Data,
+#Scope-Table-Scroll {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+#Scope-Table-Scroll {
+    height: 100%;
+    z-index: 10;
+    background: transparent;
+    color: transparent;
+}
+.Scope-Template {
+    display: none;
+}
+.Scope-Header-Selected {
+    color: green;
+}
+.Scope-Header-Template {
+    display: none;
+}
+.Scope-Header-Instance {
+    font-size: xx-large;
+    overflow: hidden;
+    white-space: nowrap;
+    padding-left: 4px;
+    border: 1px;
+    border-bottom: dotted;
+    text-align: center;
+}
+.Scope-Item-Template {
+    display: none;
+}
+.Scope-Item-Value {
+    overflow: hidden;
+}
+.Scope-Item-Instance {
+    font-size: xx-large;
+    overflow: hidden;
+    white-space: nowrap;
+    padding-left: 4px;
+    border: 1px;
+    border-bottom: dotted;
+    border-color: #8E35EF;
+}
+.Scope-Instance {
+    overflow: hidden;
+}
+.Scope-Item {
+    overflow: hidden;
+}
+.Scope-Paramenter {
+}
+.Scope-Inputs {
+    visibility: hidden;
+}
+.Scope-Instance:hover { 
+   background-color: #2B65EC;
+   cursor: pointer;
+}
+#Scope-Table-Count {
+    font-size: x-large;
+    text-align: right;
+   	font-family: HoneyScript;
+    margin-right: 5%;
+    position: absolute;
+    top: 50px;
+    right: 10px;
+    overflow: visible;
+}
+.Scope-Item-Instance-UserId {
+    text-align: right;
+    padding-right:  2%;
+}
+#Scope-Header-Option-name {
+}
+.ui-loader {
+    visibility: hidden;
+}
+

@@ -1,0 +1,24 @@
+﻿@font-face {
+  font-family: MyGothic;
+  src: url(../fonts/dc_o.ttf);
+}
+@font-face {
+  font-family: Ithornet;
+  src: url(../fonts/Ithornet.ttf);
+}
+@font-face {
+  font-family: Artonic;
+  src: url('../fonts/Artonic Personal Use Only.otf');
+}
+@font-face {
+  font-family: Uechi-Italic;
+  src: url('../fonts/Uechi-Italic.ttf');
+}
+@font-face {
+  font-family: Eutemia;
+  src: url('../fonts/Eutemia.ttf');
+}
+@font-face {
+  font-family: HoneyScript;
+  src: url('../fonts/HoneyScript-SemiBold.ttf');
+}

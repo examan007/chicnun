@@ -1,0 +1,22 @@
+﻿.done-true {
+  text-decoration: line-through;
+  color: grey;
+}
+
+#User {
+    margin-left: 2%;
+}
+#UseUpdate {
+    display: none;
+}
+
+ul {
+    list-style: none
+}
+input {
+    overflow: hidden;
+    color: lightgray;
+    background-color: transparent;
+    border-color: #8E35EF;
+}
+

@@ -1,0 +1,53 @@
+﻿       * {
+            box-sizing: border-box;
+        }
+
+        html, body {
+            margin: 0;
+            padding: 0;
+            min-height: 100%;
+        }
+
+        body {
+            width: 100%;
+            padding: 0;
+        }
+
+
+        .frame ul {
+            height: 100%;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .frame ul li {
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            background: transparent;
+        }
+
+        .frame ul li.active {
+            background: transparent;
+        }
+
+        .frame.horizontal {
+            height: 100%;
+        }
+
+        .frame.horizontal ul li {
+            float: left;
+            width: 100%;
+            height: 100%;
+        }
+
+        .frame.vertical {
+            width: 100%;
+            height: 100%;
+            float: left;
+        }
+
+        .frame.vertical ul li {
+            height: 100%;
+        }

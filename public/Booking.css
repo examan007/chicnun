@@ -1,0 +1,17 @@
+﻿#Booking {
+    width: 100%;
+}
+#calcontainer {
+  width: 600px;
+  height: 600px;
+  position: relative;
+}
+#schedule,
+#calendar {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+#calendar {
+  z-index: 10;
+}

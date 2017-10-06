@@ -1,0 +1,24 @@
+﻿::-webkit-scrollbar {
+    width: 32px;
+}
+ 
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
+     min-height: 64px;
+}
+save-aaa {
+     border: 1px solid rgb(0,0,0);
+}
+.Scope-Table-Scroll-Hidden {
+    display: none;
+}
+.Scope-Table-Scroll-Active {
+    display: block;
+    width: 20%;
+}
