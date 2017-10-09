@@ -1,0 +1,308 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>StyleUnow</title>
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="viewport" content="initial-scale=1.0" />
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="/public/ScrollBar.css?1002" />
+    <link rel="stylesheet" type="text/css" href="/public/StyleUnow.css?1002"/>
+    <link rel="stylesheet" type="text/css" href="/public/StyleUfonts.css?1002" />
+    <link rel="stylesheet" type="text/css" href="/public/Toolbar.css?1002" />
+    <link rel="stylesheet" type="text/css" href="/public/Dropdown.css?1002" />
+    <link rel="stylesheet" type="text/css" href="/public/Selection.css?1002" />
+    <link rel="stylesheet" type="text/css" href="/public/Scope.css?1002" />
+    <link rel="stylesheet" type="text/css" href="/public/modal.css?1002" />
+    <link rel="stylesheet" type="text/css" href="/public/UserObj.css?1002" />
+    <link rel="stylesheet" type="text/css" href="/public/Account.css?1002" />
+    <link rel="stylesheet" type="text/css" href="/public/Booking.css?1002" />
+    <link rel='stylesheet' href='/libs/fullcalendar.css' />
+    <link rel="stylesheet" type="text/css" href="/libs/jquery.datetimepicker.min.css" />
+    <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    <script src="https://apis.google.com/js/api.js"></script>
+    <link rel='stylesheet' href='/libs/lib/cupertino/jquery-ui.min.css' />
+    <link href='/libs/fullcalendar.min.css' rel='stylesheet' />
+    <link href='/libs/fullcalendar.print.min.css' rel='stylesheet' media='print' />
+    <script src='/libs/lib/moment.min.js'></script>
+    <script src='/libs/lib/jquery.min.js'></script>
+    <script src='/libs/fullcalendar.min.js'></script>
+    <script type="text/javascript" src="/public/FullCal.js?1002"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/public/l3.css" />
+    <script type="text/javascript" src="/public/l3.js"></script>
+    <script type="text/javascript" src="/libs/jquery.datetimepicker.full.js"></script>
+</head>
+<body class="disable-select">
+    <script>
+        var exports = new Object();
+    </script>
+    <script type="text/javascript" src="/public/ScrollBar.js?1002"></script>
+    <script type="text/javascript" src="/public/Parameters.js?1002"></script>
+    <script type="text/javascript" src="/public/RepeatObj.js?1002"></script>
+    <script type="text/javascript" src="/public/OptObj.js?1002"></script>
+    <script type="text/javascript" src="/public/markerclusterer.js?1002"></script>
+    <script type="text/javascript" src="/public/GoogleMap.js?1002"></script>
+    <div id="divWrap">
+        <div id="Toolbar"class="smalltool">
+            <table id="Toolbar-Table">
+                <tr>
+                    <td id="Toolbar-Option" class="Toolbar-Template"
+                         onclick="Controller.select(this);"
+                         onmouseover="Controller.options(this, true);">
+                        <button class="Toolbar-Button">
+                        <span id="Toolbar-Key" class="Toolbar-Class">
+                            </span>
+                        </button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div id="DomainName" class="largename">
+            <table class="toptable" border="0">
+                <tr>
+                    <td>
+                        <div id="DomainNameText" onclick="Controller.reload();">
+                            <span class="Domain">
+                                <span id="name_style">Style</span>
+                                <span id="name_u">U</span>
+                                <span id="name_now">Now</span>
+                            </span>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div id="Selection">
+            <table id="Selection-Parent-Table" class="toptable" border="0">
+                <tr id="Selection-Option" class="Selection-Template">
+                    <td>
+                        &nbsp;
+                    </td>
+                    <td class="title" >
+                        <span id="Selection-Title" class="Selection-Class"
+                              onmouseover="Controller.select(this);"
+                              onclick="Controller.select(this);"
+                              >
+                        </span>
+                    </td>
+                    <td>
+                        &nbsp;
+                    </td>
+                    <td class="Selection-Parameter" >
+                        <table id="Selection-Table" class="Selection-Inputs">
+                            <tr>
+                                <td id="Selection-Name" class="Selection-Class"
+                                    onclick="Controller.next(this, 'false');"
+                                    >
+                                </td>
+                            </tr>
+                            <tr class="Selection-Filter">
+                                <td>
+                                    <input id="Selection-Filter" class="Selection-Filter" type="text"
+                                           value="<search here>" onfocus="if (this.value == '<search here>') this.value = ''" />
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div id="Scope" style="display:none">
+            <div class="frame horizontal" id="oldH">
+                <table class="toptable">
+                    <tr>
+                        <td>
+                            <ul class="clearfix">
+                                <li>
+                                    <div id="Scope-Table" class="toptable" border="0">
+                                        <div id="Scope-Table-Data">
+                                            <table id="Scope-Table-Content" class="wholetable">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="Scope-Header-Template" id="Scope-Header-Option">
+                                                            <span id="Scope-Header-Name" class="Scope-Header-Value-Template">
+                                                                -
+                                                            </span>
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr id="Scope-Option" class="Scope-Template">
+                                                        <td class="Scope-Item-Template" id="Scope-Item-Option">
+                                                            <span id="Scope-Item-Value" class="Scope-Item-Value-Template"
+                                                                  onclick="Controller.select(this);">
+                                                                -
+                                                            </span>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div id="Scope-Table-Scroll" class="Scope-Table-Scroll-Hidden">
+                                            <div id="Scope-Table-Blank">
+                                            </div>
+                                            <div id="Scope-Table-Body" onscroll="RepeatObj.scroll(this);">
+                                                <div id="inner-content-div">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div id="Scope-Table-Count">
+                Found=0
+            </div>
+        </div>
+        <div id="Action" style="display:none">
+            <div>
+                <button id="Back"
+                    onclick="Controller.prev(this)">
+                <span id="Back-Span">
+                    Back
+                </span>
+                </button>
+            </div>
+            <div id="myModal" class="modal">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <p>Some text in the Modal..</p>
+                    <p>Some text in the Modal..</p>
+                    <p>Some text in the Modal..</p>
+                </div>
+            </div>
+            <div id="map"></div>
+        </div>
+        <div id="Dropdown">
+            <ul>
+                <li id="Dropdown-Option" class="Dropdown-Template" style="display:none"
+                     onclick="Controller.select(this)"
+                     onmouseover="Controller.options(this, true);"
+                     onmouseout="Controller.options(this, false);"
+                    >
+                    <button class="Dropdown-Button">
+                        <span id="Dropdown-Key" class="Dropdown-Class">
+                        </span>
+                    </button>
+                </li>
+            </ul>
+        </div>
+        <div id="Account" style="display:none" ng-app="useApp">
+            <div ng-controller="UseController as useList">
+                <h2 class="Account-Header">{{useList.title}}</h2>
+                    <form name="Account-Form" method="post" ng-submit="useList.validate(this);" target="_blank">
+                        <div id="Account-Form-Wrap">
+                            <table id="Account-Table">
+                                <tr ng-repeat="obj in useList.objects">
+                                    <td class="Account-Attribute" colspan="1">
+                                        <span class="done-{{obj.name}}">{{obj.name}}:&nbsp;</span>
+                                    </td>
+                                    <td class="Account-Input" colspan="1">
+                                        <input id="Account-Input-{{obj.name}}"
+                                               class="Account-Input-{{obj.type}}"
+                                               name="{{obj.name}}"
+                                               type="{{obj.type}}"
+                                               ng-model="obj.value"
+                                               ng-keydown="useList.onKeydown(obj);"
+                                               ng-keyup="useList.onKeyup(obj);"
+                                               ng-focus="useList.onFocus(obj);"
+                                               ng-blur="useList.onBlur(obj);" />
+                                            <div id="Account-Text-{{obj.name}}"
+                                               class="Account-Text-{{obj.type}}">
+                                               {{obj.value === "false" ? obj.alttext : obj.helptext}}
+                                            </div>
+                                    </td>
+                                    <td></td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div>
+                            &nbsp;
+                        </div>
+
+                    <table id="Account-Data-Table">
+                        <tr>
+                            <td ng-repeat="obj in useList.actions">
+                                <button class="Toolbar-Button"
+                                        id="Account-Save-{{obj}}"
+                                        onclick="Controller.select(this)">
+                                    <span id="Save-Span">
+                                        {{obj}}
+                                    </span>
+                                </button>
+                            </td>
+
+                        </tr>
+                    </table>
+                </form>
+                <div>
+                    <span id="UseUpdate" ng-click="function() {}"></span>
+                </div>
+                <div id="Account-Modal" class="modal">
+                    <div class="modal-content">
+                        <span class="close">&times;</span>
+                        <p class="Account-Model-Entry" ng-repeat="obj in useList.results"><b>{{obj.name}}:</b>&nbsp;{{obj.message}}</p>
+                    </div>
+                </div>
+            </div>
+         </div>
+        <div id="Booking" style="display: none">
+            <div  class="frame horizontal" id="oldH2">
+                <table class="toptable">
+                    <tr>
+                        <td width="100%">
+                            <ul class="clearfix">
+                                <li>
+                                    <div id="calcontainer">
+                                    <div id="calendar"></div>
+                                    <div id="schedule"></div>
+                                    </div>
+                               </li>
+                            </ul>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div id="Statusbar">
+        </div>
+    </div>
+    <script type="text/javascript" src="/public/Phase.js?1002"></script>
+    <script type="text/javascript" src="/public/Option.js?1002"></script>
+    <script type="text/javascript" src="/public/Control.js?1002"></script>
+    <script type="text/javascript" src="/public/Controller.js?1002"></script>
+    <script type="text/javascript" src="/public/ControlObj.js?1002"></script>
+    <script type="text/javascript" src="/public/StyleUnow.js?1002"></script>
+    <script type="text/javascript" src="/public/UserObj.js?1002"></script>
+    <script type="text/javascript" src="/public/AutoZoom.js?1002"></script>
+    <script type="text/javascript" src="/public/StyleUCal.js?1002"></script>
+    <script>
+//        console.log = function() {}
+        Controller.startApplication();
+  // tell the embed parent frame the height of the content
+        function initializeSly() {
+            if (window.parent && window.parent.parent) {
+                window.parent.parent.postMessage(["resultsFrame", {
+                    height: document.body.getBoundingClientRect().height,
+                    slug: "0duf5h6b"
+                }], "*")
+            }
+        }
+        initializeSly();
+    </script>
+    <script type="text/javascript" src="/public/modal.js?1002"></script>
+    <div id="footer">
+        <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+            <input type="hidden" name="cmd" value="_s-xclick" />
+            <input type="hidden" name="hosted_button_id" value="A7WD4TL4H5PT4" />
+            <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!" />
+            <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1" />
+        </form>
+    </div>
+    </body>
+</html>
