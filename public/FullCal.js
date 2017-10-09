@@ -384,6 +384,13 @@ function EventListObj(id) {
                     console.log(JSON.stringify(newEvent));
                     List.shift(true);
                     List.shift(false);
+                    try {
+                        Controller.editEvent(newEvent, function () {
+                            alert('after edit init');
+                        });
+                    } catch (e) {
+                        console.log(e.toString());
+                    }
                 },
                 function (err) {
                     alert(err);
