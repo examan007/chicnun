@@ -5,6 +5,7 @@ UserObj.controller('UseController', ['$scope', function ($scope) {
     RepeatObj.useList = this;
     useList.debug = 1;
     useList.title = 'New';
+    useList.panel = 'Account';
     useList.authkey = 'auth.php';
     useList.entry = null;
     useList.focus = '';
@@ -19,7 +20,7 @@ UserObj.controller('UseController', ['$scope', function ($scope) {
     useList.complete = null;
     useList.iregex = null;
     useList.operation = null;
-    useList.dialog = new ModalObj('Account-Modal');
+    useList.dialog = new ModalObj(useList.panel + '-Modal');
     useList.span = document.getElementsByClassName("close")[1];
     useList.span.onclick = function () {
         useList.dialog.modal.style.display = "none";
@@ -116,7 +117,7 @@ UserObj.controller('UseController', ['$scope', function ($scope) {
         if (typeof (entry.Focus) === 'undefined') { } else
         try {
             useList.focus = entry.Focus;
-            var id = 'Account-Input-' + entry.Focus;
+            var id = useList.panel + '-Input-' + entry.Focus;
             var element = document.getElementById(id);
             element.focus();
             console.log(funcname + '() [' + id + ']');
@@ -138,7 +139,7 @@ UserObj.controller('UseController', ['$scope', function ($scope) {
         if (typeof (entry.picker) === 'undefined') {
             console.log(funcname = '(); entry.picker undefined!');
         } else {
-            var id = '#Account-Input-' + name
+            var id = '#' + useList.panel + '-Input-' + name
             console.log(funcname + '(); id=[' + id + ']');
  //           jQuery(id).datetimepicker();
         }
@@ -181,7 +182,7 @@ UserObj.controller('UseController', ['$scope', function ($scope) {
                 console.log('No actions for [' + mapname + ']');
             } else
                 try {
-                    id = 'Account-Save-' + useList.actions[useList.actions.length - 1];
+                    id = useList.panel + '-Save-' + useList.actions[useList.actions.length - 1];
                     console.log('useList.update() [' + id + ']');
                     /*                $(window).keydown(function (event) {
                                         if (event.keyCode == 13) {
@@ -593,7 +594,7 @@ UserObj.controller('UseController', ['$scope', function ($scope) {
         var ret = false;
         useList.newvals = new Array();
         useList.fields = new Array();
-        var fields = document.forms['Account-Form'];
+        var fields = document.forms[useList.panel + '-Form'];
         var callback = useList.cancel;
         if (callback != null) {
             useList.cancel = null;

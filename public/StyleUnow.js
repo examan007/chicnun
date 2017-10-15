@@ -19,6 +19,7 @@ var Controller = {
     Controls: [],
     Complete: null,
     CompletePhase: null,
+    StylistUserId: '010',
     checkForm: function (success, failure, data) {
         var funcname = this.ClassObj + '.checkForm';
         var ret = false;
@@ -151,11 +152,11 @@ var Controller = {
         }
         if (entry != null) {
         } else
-        if ((test = this.getTest(obj)) == null) {
+        if ((test = Controller.getTest(obj)) == null) {
             console.log('' + funcname + '(); cannot create test!');
         } else
         if ((entry = RepeatObj.findEntry(test)) == null) {
-            console.log( '' + funcname + '(); cannot find key!');
+            console.log( '' + funcname + '(); cannot find key!' + JSON.stringify(test));
         }
         return (entry);
     },

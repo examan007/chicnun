@@ -157,10 +157,10 @@ function OptionLoginBase(classname) {
 
 function OptionLogin(classname) {
     var option = new OptionLoginBase(classname);
-    option.login_intialize = option.initialize;
+    option.login_initialize = option.initialize;
     option.initialize = function (obj) {
         NeedAuthentication = false;
-        option.login_intialize(obj);
+        option.login_initialize(obj);
         NeedAuthentication = true;
         console.log(option.Classname + JSON.stringify(option.Entry));
     }
@@ -319,6 +319,34 @@ function OptionEvent(classname) {
     option.filename = 'Event.json';
     option.getData = function (jsonfilename, callback) {
         callback(Controller.CurrentEvent);
+    }
+    return (option);
+}
+function OptionService(classname) {
+    var option = new OptionEdit(classname);
+    option.filename = 'Service.json';
+    option.edit_initialize = option.initialize;
+    option.initialize = function (obj) {
+        option.edit_initialize(obj);
+        function service(obj) {
+            var complete = obj.executeselect;
+            return (function () {
+                if (complete == null) { } else {
+                    complete();
+                    console.log('complete' + JSON.stringify(obj));
+                    RepeatObj.useList.executeservice = function () {
+                        try {
+                            $('#Booking').hide();
+                            $('#Account').show();
+                            console.log('Controller.executeservice' + JSON.stringify(obj));
+                        } catch (e) {
+                            alert(e.toString());
+                        }
+                    }
+                }
+            })
+        }
+        // obj.executeselect = service(obj);
     }
     return (option);
 }

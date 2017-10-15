@@ -367,14 +367,17 @@ function EventListObj(id) {
 		In order to modify its option later.
 	*/
 	function createEvent(start, end) {
-        function create_event() {
+	    function create_event() {
+	        var mom = new moment();
             newEvent = {
                 start: start.format(),
                 end: end.format(),
                 allDay: false,
                 title: '',
                 backgroundColor: 'transparent',
-                color: '#000080'
+                color: '#000080',
+                create: mom.format(),
+                stylist: Controller.StylistUserId
             }
             return (function () {
                 List.addEvent(

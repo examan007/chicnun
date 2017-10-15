@@ -152,7 +152,12 @@ function SearchObj() {
             var key = null;
             var entry = null;
             if ((entry = Controller.getEntry(obj)) == null) {
-                console.log(funcname + '(); unable to resolve data element!');
+                var test = null;
+                if ((test = Controller.getTest(obj)) == null) {
+                    console.log('Action; unable to resolve data element!' + JSON.stringify(obj));
+                } else {
+                    Controller.StylistUserId = test;
+                }
                 ret = false;
             } else {
                 var latlng;

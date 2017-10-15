@@ -44,6 +44,13 @@
     font-size: large;
     width: 20em;
 }
+.Account-Input-button {
+    font-size: x-large;
+}
+.Account-Input-button:hover {
+   color: white;
+   cursor: pointer;
+}
 .Account-Input-text:hover {
    color: white;
    cursor: pointer;
@@ -64,7 +71,6 @@
    cursor: pointer;
 }
 .Account-Input-checkbox {
-    display: none;
 }
 .Account-Text-checkbox {
     color: lightgray;
