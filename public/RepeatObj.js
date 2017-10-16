@@ -51,6 +51,8 @@ OS_Map.prototype.getEntryWithKey = function (key_in, keyname) {
         } else
         if (keyname != null) {
             test = f[keyname];
+            test = test.toString();
+            key = key.toString();
             console.log('test=[' + test + ']=[' + key + ']' + JSON.stringify(f));
         } else
         if (typeof (f.ObjectId) !== 'undefined') {
@@ -62,8 +64,8 @@ OS_Map.prototype.getEntryWithKey = function (key_in, keyname) {
         if (typeof (f.place_id) !== 'undefined') {
             test = f.place_id;
         }
-        if (test == null) {
-        } else
+        if (test == null) {} else
+        if (test.length != key.length) {} else
         if (key.indexOf(test) == 0) {
             entry = f;
             return (false);
@@ -741,7 +743,7 @@ var RepeatObj = {
             }
         } catch (e) {
             console.log(funcname + '(); Exception; dropdown=[' + dropdown + '] key value=[' + value + ']');
-            console.log(funcname + '();=' + JSON.stringify(e));
+            console.log(funcname + '();' + e.toString());
         }
         return (entry);
     },

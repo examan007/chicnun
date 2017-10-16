@@ -157,6 +157,8 @@ function SearchObj() {
                     console.log('Action; unable to resolve data element!' + JSON.stringify(obj));
                 } else {
                     Controller.StylistUserId = test;
+                    Controller.StylistUser = RepeatObj.getEntry('Users', 'UserId', test);
+                    console.log('StylistUserId=[' + test + ']:[' + JSON.stringify(Controller.StylistUser) + ']');
                 }
                 ret = false;
             } else {

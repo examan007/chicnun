@@ -20,6 +20,7 @@ var Controller = {
     Complete: null,
     CompletePhase: null,
     StylistUserId: '010',
+    StylistUser: null,
     checkForm: function (success, failure, data) {
         var funcname = this.ClassObj + '.checkForm';
         var ret = false;

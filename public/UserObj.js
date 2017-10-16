@@ -363,6 +363,17 @@ UserObj.controller('UseController', ['$scope', function ($scope) {
     useList.email = function (value) {
         return (true);
     }
+    useList.inputstylist = function (value, obj) {
+        var entry = Controller.StylistUser;
+        if (entry == null) {
+            obj['value'] = value;
+        } else {
+            obj['value'] = entry.Name;
+        }
+        console.log('inputstylist(); value=[' + obj['value'] + ']');
+    }
+    useList.outputstylist = function (value, obj) {
+    }
     useList.inputdate = function (value, obj) {
         try {
             //        var im = new moment(value);
