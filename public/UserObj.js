@@ -197,6 +197,24 @@ UserObj.controller('UseController', ['$scope', function ($scope) {
     }
     useList.onFocus = function (obj) {
         console.log('onFocus before testing $scope.value=[' + obj.value + ']');
+        if (obj.name === 'stylist') {
+            console.log('useList.entry=' + JSON.stringify(useList.entry));
+            console.log('useList.data=' + JSON.stringify(useList.data));
+            function editevent(data) {
+                var event = data;
+                return (function (userid) {
+                    event.stylist = userid;
+                    Controller.editEvent(event, function () {
+                        console.log('editEvent();');
+                    })
+                })
+            }
+            Controller.editeventstage = editevent(useList.data);
+            Controller.select({
+                id: 'Toolbar-Option-Search-Stylist',
+                selected: true
+            })
+        } else
         if (useList.focus === obj.name) {
             console.log('onFocus()' +
                 ' useList.focus=[' + useList.focus + ']' +
@@ -209,6 +227,9 @@ UserObj.controller('UseController', ['$scope', function ($scope) {
                 obj.type = obj.savetype;
             }
         }
+    }
+    useList.onClick = function (obj) {
+        alert(JSON.stringify(obj));
     }
     useList.onKeyup = function (obj) {
         console.log('onKeyup() before testing $scope.value=[' + obj.value + ']');
@@ -363,16 +384,22 @@ UserObj.controller('UseController', ['$scope', function ($scope) {
     useList.email = function (value) {
         return (true);
     }
+    useList.Stylist = null;
     useList.inputstylist = function (value, obj) {
-        var entry = Controller.StylistUser;
-        if (entry == null) {
-            obj['value'] = value;
+        //var entry = Controller.StylistUser;
+        var entry = null;
+        if (value.length <= 0) {} else
+        if ((entry = RepeatObj.getEntry('stylist', 'UserId', value)) == null) {
         } else {
+            useList.Stylist = entry;
             obj['value'] = entry.Name;
         }
         console.log('inputstylist(); value=[' + obj['value'] + ']');
     }
     useList.outputstylist = function (value, obj) {
+        if (useList.Stylist == null) { } else {
+            obj['value'] = useList.Stylist.UserId;
+        }
     }
     useList.inputdate = function (value, obj) {
         try {

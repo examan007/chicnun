@@ -19,7 +19,7 @@ var Controller = {
     Controls: [],
     Complete: null,
     CompletePhase: null,
-    StylistUserId: '010',
+    StylistUserId: "",
     StylistUser: null,
     checkForm: function (success, failure, data) {
         var funcname = this.ClassObj + '.checkForm';
@@ -473,6 +473,11 @@ var Controller = {
             obj.savecomplete();
             delete (obj.savecomplete);
         }
+        var editevent = Controller.editevent;
+        if (typeof (editevent) === 'undefined') { } else {
+            delete (Controller.editevent);
+            editevent();
+        }
         CheckSizeZoom();
     },
     CurrentOption: '',
@@ -776,6 +781,7 @@ var Controller = {
     },
     startApplication: function () {
         ParamObj.getParametersData( function () {
+            RepeatObj.addList('Stylist', '/data/stylist.json', function () { });
             RepeatObj.addList('Toolbar', '/data/Toolbar.json', function () {
                 Controller.readyToolbar();
                 RepeatObj.addList('Dropdown', '/data/Dropdown.json', function () {

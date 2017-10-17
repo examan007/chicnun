@@ -253,6 +253,8 @@ function OptionEdit(classname) {
                 }
                 RepeatObj.useList.addData(data);
                 RepeatObj.useList.initialize(option.Name, true);
+                $('#Account').show();
+                $('#Scope').hide();
             });
         }
         function getobject(obj) {
@@ -304,6 +306,7 @@ function OptionEdit(classname) {
         });
     }
     option.terminate = function (obj) {
+        $('#Account').hide();
         $(option.elementids[0]).unbind('mousedown');
         option.enabled = false;
         RepeatObj.useList.checkcomplete = null;

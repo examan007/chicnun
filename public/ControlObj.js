@@ -159,6 +159,21 @@ function SearchObj() {
                     Controller.StylistUserId = test;
                     Controller.StylistUser = RepeatObj.getEntry('Users', 'UserId', test);
                     console.log('StylistUserId=[' + test + ']:[' + JSON.stringify(Controller.StylistUser) + ']');
+                    function editevent(stylist, stage) {
+                        var userid = stylist;
+                        var edit = stage;
+                        return (function () {
+                            if (typeof (edit) === 'undefined') { } else {
+                                edit(userid);
+                            }
+                        });
+                    }
+                    Controller.editevent = editevent(test, Controller.editeventstage);
+                    delete (Controller.editeventstage);
+                    Controller.select({
+                        id: 'Toobar-Option-Booking',
+                        selected: true
+                    })
                 }
                 ret = false;
             } else {

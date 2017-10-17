@@ -369,15 +369,17 @@ function EventListObj(id) {
 	function createEvent(start, end) {
 	    function create_event() {
 	        var mom = new moment();
-            newEvent = {
-                start: start.format(),
-                end: end.format(),
-                allDay: false,
-                title: '',
-                backgroundColor: 'transparent',
-                color: '#000080',
-                create: mom.format(),
-                stylist: Controller.StylistUserId
+	        newEvent = {
+	            start: start.format(),
+	            end: end.format(),
+	            allDay: false,
+	            title: '',
+	            backgroundColor: 'transparent',
+	            color: '#000080',
+	            create: mom.format()
+	        }
+	        if (Controller.StylistUserId.length > 0) {
+    	        newEvent.stylist = Controller.StylistUserId;
             }
             return (function () {
                 List.addEvent(
