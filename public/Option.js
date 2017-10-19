@@ -323,6 +323,11 @@ function OptionEvent(classname) {
     option.getData = function (jsonfilename, callback) {
         callback(Controller.CurrentEvent);
     }
+    option.event_initialize = option.initialize;
+    option.initialize = function (obj) {
+        Controller.setControl('Booking');
+        option.event_initialize(obj);
+    }
     return (option);
 }
 function OptionService(classname) {

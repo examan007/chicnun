@@ -45,14 +45,21 @@ UserObj.controller('UseController', ['$scope', function ($scope) {
                     alert(e.toString());
                 }
             }
+            function check(obj, value) {
+                console.log('old value=[' + obj['value'] + ']');
+                if (useList.checkAttr(obj, value, 'input') == false) {
+                    obj['value'] = value;
+                }
+                console.log('value=[' + obj['value'] + ']');
+            }
+            if (typeof(data[obj.name]) === 'undefined') {
+                check(obj, "");                
+                
+            } else
             for (var key in data) {
                 console.log('key=[' + key.toString() + ']');
                 if (obj.name === key) {
-                    console.log('old value=[' + obj['value'] + ']');
-                    if (useList.checkAttr(obj, data[key], 'input') == false) {
-                        obj['value'] = data[key];
-                    }
-                    console.log('value=[' + obj['value'] + ']');
+                    check(obj, data[key]);
                     break;
                 }
             }
@@ -202,8 +209,8 @@ UserObj.controller('UseController', ['$scope', function ($scope) {
             console.log('useList.data=' + JSON.stringify(useList.data));
             function editevent(data) {
                 var event = data;
-                return (function (userid) {
-                    event.stylist = userid;
+                return (function () {
+                    useList.StylistUserId = Controller.StylistUserId;
                     Controller.editEvent(event, function () {
                         console.log('editEvent();');
                     })
@@ -386,7 +393,11 @@ UserObj.controller('UseController', ['$scope', function ($scope) {
     }
     useList.Stylist = null;
     useList.inputstylist = function (value, obj) {
-        //var entry = Controller.StylistUser;
+        if (typeof(useList.StylistUserId) === 'undefined') {
+        } else {
+            value = useList.StylistUserId;
+            delete (useList.StylistUserId);
+        }
         var entry = null;
         if (value.length <= 0) {} else
         if ((entry = RepeatObj.getEntry('stylist', 'UserId', value)) == null) {
@@ -469,6 +480,7 @@ UserObj.controller('UseController', ['$scope', function ($scope) {
         var ret = true;
         if (fields == null) {
             ret = false;
+            console.log(funcname + '(); fields null.');
         } else
         for (var i = 0; i < useList.objects.length; i++) {
             var obj = useList.objects[i];
@@ -494,8 +506,8 @@ UserObj.controller('UseController', ['$scope', function ($scope) {
                 delete (obj.precheck);
                 if (useList.checkAttr(
                     obj, value, (flag == true) ? 'commit' : 'validate') == false) {
-                    console.log('useListcheckAttr() failed obj=' + JSON.stringify(obj));
                     ret = false; // latch false state; all must bCe true
+                    console.log(funcname + '() failed obj=' + JSON.stringify(obj));
                 }
                 if (useList.debug < 2) { } else
                 if (obj.type === 'password') {
@@ -506,12 +518,19 @@ UserObj.controller('UseController', ['$scope', function ($scope) {
             } catch (e) {
                 obj.result = false;
                 ret = false;
+                console.log(funcname + '(); exception ' + e.toString());
                 obj.message = e.toString();
             }
             console.log(funcname + '() about to checkcomplete.');
-            var callback = useList.checkcomplete;
-            if (callback == null) { } else {
-                ret = callback(flag, fields, ret);
+            try {
+                var callback = useList.checkcomplete;
+                if (callback == null) { } else {
+                    if ((ret = callback(flag, fields, ret)) == false) {
+                        console.log(funcname + '(); callback returned false.');
+                    }
+                }
+            } catch (e) {
+                console.log(e.toString());
             }
         }
         return (ret);
@@ -574,6 +593,7 @@ UserObj.controller('UseController', ['$scope', function ($scope) {
             },
             beforeSend: setHeader()
         });
+        console.log(funcname + '(); Done!')
         return (true);
     }
     useList.forEachObject = function (callback) {
@@ -650,7 +670,7 @@ UserObj.controller('UseController', ['$scope', function ($scope) {
                 } else
                 if ((ret = useList.checkAttributes(fields, true)) == false) {
                     useList.show('Failure', 'Unable to commit changes!');
-            } else {
+                } else {
                     if (typeof (json.Authentication) === 'undefined') { } else
                     if (json.Authentication == false) {} else
                     try {

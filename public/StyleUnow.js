@@ -45,7 +45,7 @@ var Controller = {
             callback: function (obj) {
             }
         }
-        RepeatObj.useList.addData(obj.event);
+//        RepeatObj.useList.addData(obj.event);
         Controller.select(obj);
         Controller.changeState(obj, true);
     },

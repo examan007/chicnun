@@ -561,10 +561,6 @@ function EventListObj(id) {
 	    },
         allDaySlot: false,
 	    loadingX: function (bool) { 
-	        if (bool) 
-	            console.log('loading ...'); 
-	        else 
-	            console.log('loaded!'); 
 	    },
 	    header: {
 	        left: '',

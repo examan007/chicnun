@@ -207,7 +207,9 @@
                                                class="Account-Input-{{obj.type}}"
                                                name="{{obj.name}}"
                                                type="{{obj.type}}"
+                                               value="{{obj.value}}"
                                                ng-model="obj.value"
+                                               ng-onclick="useList.onClick(obj);"
                                                ng-keydown="useList.onKeydown(obj);"
                                                ng-keyup="useList.onKeyup(obj);"
                                                ng-focus="useList.onFocus(obj);"
@@ -246,7 +248,10 @@
                 <div id="Account-Modal" class="modal">
                     <div class="modal-content">
                         <span class="close">&times;</span>
-                        <p class="Account-Model-Entry" ng-repeat="obj in useList.results"><b>{{obj.name}}:</b>&nbsp;{{obj.message}}</p>
+                        <p class="Account-Model-Entry"
+                             ng-repeat="obj in useList.results"
+                             ng-model="obj.results"
+                            ><b>{{obj.name}}:</b>&nbsp;{{obj.message}}</p>
                     </div>
                 </div>
             </div>

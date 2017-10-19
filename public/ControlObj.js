@@ -6,6 +6,7 @@ function ControlObj() {
     that.Section = 'Selection';
     that.Option = new optobj();
     that.checkForm = function (success, failure, data) {
+        alert('here');
         return (false);
     } 
     that.hide = function () {
@@ -159,21 +160,20 @@ function SearchObj() {
                     Controller.StylistUserId = test;
                     Controller.StylistUser = RepeatObj.getEntry('Users', 'UserId', test);
                     console.log('StylistUserId=[' + test + ']:[' + JSON.stringify(Controller.StylistUser) + ']');
-                    function editevent(stylist, stage) {
-                        var userid = stylist;
+                    function editevent(stage) {
                         var edit = stage;
                         return (function () {
                             if (typeof (edit) === 'undefined') { } else {
-                                edit(userid);
+                                Controller.editevent = edit;
+                                Controller.select({
+                                    id: 'Toobar-Option-Booking',
+                                    selected: true
+                                })
                             }
                         });
                     }
-                    Controller.editevent = editevent(test, Controller.editeventstage);
+                    Controller.editevent = editevent(Controller.editeventstage);
                     delete (Controller.editeventstage);
-                    Controller.select({
-                        id: 'Toobar-Option-Booking',
-                        selected: true
-                    })
                 }
                 ret = false;
             } else {
