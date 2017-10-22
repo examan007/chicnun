@@ -270,7 +270,7 @@ function EventListObj(id) {
                 var saveobj = new Object();
                 var newobj = new Object();
                 List.copyToAttrs(List.Entries[index], saveobj);
-                List.copyFromAttrs(List.Entries[index], newevent);
+                List.copyToAttrs(newevent, List.Entries[index]);
                 List.copyToAttrs(List.Entries[index], newobj);
                 complete = revertFunc;
                 return (function (err) {
