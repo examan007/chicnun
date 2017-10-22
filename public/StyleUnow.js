@@ -780,6 +780,17 @@ var Controller = {
         return (ret);
     },
     startApplication: function () {
+        function getParameterByName(name) {
+            var url = window.location.href;
+            name = name.replace(/[\[\]]/g, "\\$&");
+            var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            var value = decodeURIComponent(results[2].replace(/\+/g, " "));
+            console.log(name + '=[' + value + ']');
+            return (value);
+        }
         ParamObj.getParametersData( function () {
             RepeatObj.addList('Stylist', '/data/stylist.json', function () { });
             RepeatObj.addList('Toolbar', '/data/Toolbar.json', function () {
@@ -824,11 +835,18 @@ var Controller = {
                     }
                 }
                 cookie.handleFailure = function (err) {
-                    alert('err='+ JSON.stringify(err));
+                    console.log('err='+ JSON.stringify(err));
                 }
                 cookie.getData( '/private');
             });
             RepeatObj.addList('Event', '/data/Event.json', function () {
+                var eventid = getParameterByName('eventid');
+                var selectid = getParameterByName('select');
+                Controller.select({
+                    id: selectid,
+                    selected: true,
+                    eventid: eventid
+                });
             });
         });
     }

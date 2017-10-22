@@ -16,6 +16,7 @@ UserObj.controller('UseController', ['$scope', function ($scope) {
     useList.checkcomplete = null;
     useList.cancel = null;
     useList.actions = [];
+    useList.savedobjects = [];
     useList.data = null;
     useList.complete = null;
     useList.iregex = null;
@@ -27,42 +28,47 @@ UserObj.controller('UseController', ['$scope', function ($scope) {
     }
     useList.initData = function () {
         if (useList.data == null) {
-            console.log('useList.initData(); data=null');
         } else
         if (useList.objects == null) {
             console.log('useList.initData(); objects=null');
-        } else
-        for (var i = 0; i < useList.objects.length; i++) {
-            var obj = useList.objects[i];
-            var data = JSON.parse(JSON.stringify(useList.data));
-            console.log('obj=' + JSON.stringify(obj));
-            console.log('data=' + JSON.stringify(useList.data));
-            if (typeof (data.sequence) === 'undefined') { } else {
-                try {
-                    Application.CurrentControl.sequence = parseInt(data.sequence);
-                    console.log(Application.CurrentControl.Classname + '[' + data.sequence + ']');
-                } catch (e) {
-                    alert(e.toString());
+        } else {
+            for (var i = 0; i < useList.objects.length; i++) {
+                var obj = useList.objects[i];
+                if(i < useList.savedobjects.length) {
+                    console.log('saved=' + JSON.stringify(useList.savedobjects[i]));
+                    check(obj, useList.savedobjects[i]['value']);
+                    continue;
+                }
+                var data = JSON.parse(JSON.stringify(useList.data));
+                console.log('obj=' + JSON.stringify(obj));
+                console.log('data=' + JSON.stringify(useList.data));
+                if (typeof (data.sequence) === 'undefined') { } else {
+                    try {
+                        Application.CurrentControl.sequence = parseInt(data.sequence);
+                        console.log(Application.CurrentControl.Classname + '[' + data.sequence + ']');
+                    } catch (e) {
+                        alert(e.toString());
+                    }
+                }
+                function check(obj, value) {
+                    console.log('old value=[' + obj['value'] + ']');
+                    if (useList.checkAttr(obj, value, 'input') == false) {
+                        obj['value'] = value;
+                    }
+                    console.log('value=[' + obj['value'] + ']');
+                }
+                if (typeof(data[obj.name]) === 'undefined') {
+                    check(obj, "");
+                } else
+                for (var key in data) {
+                    console.log('key=[' + key.toString() + ']');
+                    if (obj.name === key) {
+                        check(obj, data[key]);
+                        break;
+                    }
                 }
             }
-            function check(obj, value) {
-                console.log('old value=[' + obj['value'] + ']');
-                if (useList.checkAttr(obj, value, 'input') == false) {
-                    obj['value'] = value;
-                }
-                console.log('value=[' + obj['value'] + ']');
-            }
-            if (typeof(data[obj.name]) === 'undefined') {
-                check(obj, "");                
-                
-            } else
-            for (var key in data) {
-                console.log('key=[' + key.toString() + ']');
-                if (obj.name === key) {
-                    check(obj, data[key]);
-                    break;
-                }
-            }
+            useList.savedobjects = [];
         }
     }
     useList.addData = function (data) {
@@ -209,6 +215,11 @@ UserObj.controller('UseController', ['$scope', function ($scope) {
             console.log('useList.data=' + JSON.stringify(useList.data));
             function editevent(data) {
                 var event = data;
+                useList.savedobjects = [];
+                for (var i = 0; i < useList.objects.length; i++) {
+                    useList.savedobjects.push(JSON.parse(JSON.stringify(useList.objects[i])));
+                    console.log('onFocus()' + JSON.stringify(useList.savedobjects));
+                }
                 return (function () {
                     useList.StylistUserId = Controller.StylistUserId;
                     Controller.editEvent(event, function () {
