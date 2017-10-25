@@ -699,6 +699,18 @@ var RepeatObj = {
     replacer: function (key, value) {
         return value;
     },
+    sortMap: function (key, attr) {
+        var map = null;
+        try {
+            map = this.Data[key].DataMap.map;
+            map.sort( function (a, b) {
+                return (parseInt(a[attr])-parseInt(b[attr]));
+            });
+        } catch (e) {
+            console.log(e);
+        }
+        return (map);
+    },
     getMap: function (key) {
         var map = null;
         try {

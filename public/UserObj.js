@@ -168,7 +168,7 @@ UserObj.controller('UseController', ['$scope', function ($scope) {
     }
     useList.initialize = function (mapname, flag) {
         var ret = false;
-        var objects = RepeatObj.getMap(mapname);
+        var objects = RepeatObj.sortMap(mapname, 'index');
         console.log('useList.initialize(' + mapname + '); executing ...');
         if (objects == null) {
             console.log('Cannot find map name=[' + mapname + ']');

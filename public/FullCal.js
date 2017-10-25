@@ -38,6 +38,23 @@ function EventListObj(id) {
         List.uber_initialize();
         $(List.Id).fullCalendar('refetchEvents');
     }
+    List.isSame = function (first, second) {
+        var ret = false;
+        try {
+            if (first.length != second.length) {
+                ret = false
+            } else
+            for (var i = 0; i < first.length; i++) {
+                if (first[i] === second[i]) {} else {
+                    ret = false;
+                    break;
+                }
+            }
+        } catch (e) {
+            ret = false;
+        }
+        return (ret);
+    }
     List.copyFromAttrs = function (eventobj, newevent) {
         for (var key in eventobj) {
             eventobj[key] = JSON.parse(JSON.stringify(newevent[key]));
@@ -257,6 +274,15 @@ function EventListObj(id) {
     List.changeEvent = function (event, newevent, revertFunc) {
         console.log('changeEvent event=' + JSON.stringify(event));
         console.log('changeEvent newevent=' + JSON.stringify(newevent));
+        function success() {
+            return (function (data) {
+                Controller.CurrentObj.changeState({
+                    id: 'Scope-Option-Booking',
+                    selected: true
+                    }, false);
+                $(List.Id).fullCalendar('refetchEvents');
+            });
+        }
         var index = List.findEventIndex(event);
         if (index < 0) {
             console.log('changeEvent() NOT found!' + JSON.stringify(event));
@@ -265,10 +291,15 @@ function EventListObj(id) {
         if (List.isValidEvent(newevent) == false) {
             console.log('changeEvent() invalid new event!' + JSON.stringify(newevent));
             revertFunc('New event is invalid! ' + JSON.stringify(newevent));
-        } else {
+        } else
+        if (List.isSame(newevent, event) == true) {
+            success()(null); 
+       } else {
             function revert() {
                 var saveobj = new Object();
                 var newobj = new Object();
+                var mom = new moment();
+                newevent.update = mom.format();
                 List.copyToAttrs(List.Entries[index], saveobj);
                 List.copyToAttrs(newevent, List.Entries[index]);
                 List.copyToAttrs(List.Entries[index], newobj);
@@ -283,16 +314,7 @@ function EventListObj(id) {
                     complete();
                 });
             }
-            function success() {
-                return (function (data) {
-                    Controller.CurrentObj.changeState({
-                        id: 'Scope-Option-Booking',
-                        selected: true
-                       }, false);
-                    $(List.Id).fullCalendar('refetchEvents');
-                });
-            }
-            List.save(success(), revert());
+           List.save(success(), revert());
         }
     }
     List.swallownextshift = false;
@@ -502,6 +524,7 @@ function EventListObj(id) {
 	List.calendar = $(List.Id).fullCalendar(
 	{
         now: "2010-01-01T00:00:00",
+        height: 1000,
 	    dayClick: function (date, jsEvent, view) {
 	        console.log('dayClick=' + JSON.stringify(date));
 	        if (List.nobounce == true

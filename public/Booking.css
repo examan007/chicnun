@@ -15,3 +15,12 @@
 #calendar {
   z-index: 10;
 }
+.fc-view-container {
+  font-size: x-large;
+}
+.fc-axis {
+  font-size: small;
+}
+.fc-head {
+  font-size: small;
+}

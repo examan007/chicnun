@@ -7,65 +7,68 @@
     <title></title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
     <link rel="stylesheet" href="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.css" />
+    <link rel="stylesheet" href="/public/base.css" />
     <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
     <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
     <script src="https://apis.google.com/js/api.js"></script>
 </head>
 <body>
-    <div id="Account" style="display:block" ng-app="useApp">
-        <div ng-controller="UseController as useList">
-            <h2 class="{{useList.title}}-Header">{{useList.title}}</h2>
-            <form name="{{useList.title}}-Form" method="post" ng-submit="useList.validate(this);" target="_blank">
-                <div id="{{useList.title}}-Form-Wrap">
-                    <table id="{{useList.title}}-Table">
-                        <tr ng-repeat="obj in useList.objects">
-                            <td class="{{useList.title}}-Attribute" colspan="1">
-                                <span class="done-{{obj.name}}">{{obj.name}}:&nbsp;</span>
+    <div id="divWrap">
+        <div id="Account" style="display:block" ng-app="useApp">
+            <div ng-controller="UseController as useList">
+                <h2 class="{{useList.title}}-Header">{{useList.title}}</h2>
+                <form name="{{useList.title}}-Form" method="post" ng-submit="useList.validate(this);" target="_blank">
+                    <div id="{{useList.title}}-Form-Wrap">
+                        <table id="{{useList.title}}-Table">
+                            <tr ng-repeat="obj in useList.objects">
+                                <td class="{{useList.title}}-Attribute" colspan="1">
+                                    <span class="done-{{obj.name}}">{{obj.name}}:&nbsp;</span>
+                                </td>
+                                <td class="{{useList.title}}-Input" colspan="1">
+                                    <input id="{{useList.title}}-Input-{{obj.name}}"
+                                           class="{{useList.title}}-Input-{{obj.type}}"
+                                           name="{{obj.name}}"
+                                           type="{{obj.type}}"
+                                           value="{{obj.value}}"
+                                           ng-model="obj.value"
+                                           ng-keydown="useList.onKeydown(obj);"
+                                           ng-keyup="useList.onKeyup(obj);"
+                                           ng-focus="useList.onFocus(obj);"
+                                           ng-blur="useList.onBlur(obj);" />
+                                    <div id="{{useList.title}}-Text-{{obj.name}}"
+                                         class="{{useList.title}}-Text-{{obj.type}}">
+                                        {{obj.value === "false" ? obj.alttext : obj.helptext}}
+                                    </div>
+                                </td>
+                                <td></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div>
+                        &nbsp;
+                    </div>
+
+                    <table id="{{useList.title}}-Data-Table">
+                        <tr>
+                            <td ng-repeat="obj in useList.actions">
+                                <button class="Toolbar-Button"
+                                        id="{{useList.title}}-Save-{{obj}}"
+                                        onclick="Controller.select(this)">
+                                    <span id="Save-Span">
+                                        {{obj}}
+                                    </span>
+                                </button>
                             </td>
-                            <td class="{{useList.title}}-Input" colspan="1">
-                                <input id="{{useList.title}}-Input-{{obj.name}}"
-                                       class="{{useList.title}}-Input-{{obj.type}}"
-                                       name="{{obj.name}}"
-                                       type="{{obj.type}}"
-                                       value="{{obj.value}}"
-                                       ng-model="obj.value"
-                                       ng-keydown="useList.onKeydown(obj);"
-                                       ng-keyup="useList.onKeyup(obj);"
-                                       ng-focus="useList.onFocus(obj);"
-                                       ng-blur="useList.onBlur(obj);" />
-                                <div id="{{useList.title}}-Text-{{obj.name}}"
-                                     class="{{useList.title}}-Text-{{obj.type}}">
-                                    {{obj.value === "false" ? obj.alttext : obj.helptext}}
-                                </div>
-                            </td>
-                            <td></td>
                         </tr>
                     </table>
-                </div>
-                <div>
-                    &nbsp;
-                </div>
-
-                <table id="{{useList.title}}-Data-Table">
-                    <tr>
-                        <td ng-repeat="obj in useList.actions">
-                            <button class="Toolbar-Button"
-                                    id="{{useList.title}}-Save-{{obj}}"
-                                    onclick="Controller.select(this)">
-                                <span id="Save-Span">
-                                    {{obj}}
-                                </span>
-                            </button>
-                        </td>
-                    </tr>
-                </table>
-            </form>
-            <div id="{{useList.title}}-Modal" class="modal">
-                <div class="modal-content">
-                    <span class="close"></span>
-                    <span class="close"></span>
-                    <p class="{{useList.title}}-Model-Entry" ng-repeat="obj in useList.results"><b>{{obj.name}}:</b>&nbsp;{{obj.message}}</p>
+                </form>
+                <div id="{{useList.title}}-Modal" class="modal">
+                    <div class="modal-content">
+                        <span class="close"></span>
+                        <span class="close"></span>
+                        <p class="{{useList.title}}-Model-Entry" ng-repeat="obj in useList.results"><b>{{obj.name}}:</b>&nbsp;{{obj.message}}</p>
+                    </div>
                 </div>
             </div>
         </div>
