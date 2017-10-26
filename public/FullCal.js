@@ -436,7 +436,7 @@ function EventListObj(id) {
         }
         var callback = create_event();
         if (Controller.UserId == 0) {
-            Controller.createEvent(controller(callback));
+            Controller.authenticate(controller(callback));
         } else {
             callback();
         }

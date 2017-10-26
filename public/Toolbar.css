@@ -14,7 +14,7 @@
     background-color: #000080;
     color: #8E35EF;
     border-color: #8E35EF;
-    font-size: x-large;
+    font-size: xx-large;
 }
 .Toolbar-Button-Selected:hover {
     color: #000080;
@@ -37,7 +37,7 @@
     border-right: solid;
     border-color: #8E35EF;
     font-weight: bold;
-    font-size: x-large;
+    font-size: xx-large;
 }
 #Toolbar-Table {
     table-layout:fixed;
