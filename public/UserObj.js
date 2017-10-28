@@ -570,6 +570,12 @@ UserObj.controller('UseController', ['$scope', function ($scope) {
         }
         if (useList.debug < 1) { } else
         try {
+            var mom = new moment();
+            var obj = {
+                key: 'create',
+                value: mom.format()
+            }
+            data.push(obj);
             console.log('data=' + JSON.stringify(data));
         } catch (e) {
             console.log(e);

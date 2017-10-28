@@ -314,7 +314,7 @@ function BookingObj() {
         var option = args[2];
         this.Action = option;
         console.log('submit() [' + option + ']');
-        if (option === 'Destroy') {
+        if (option === 'Cancel') {
             function complete(control) {
                 var lcontrol = control;
                 var lobj = obj;
@@ -323,13 +323,6 @@ function BookingObj() {
                 });
             }
             this.Calendar.removeEvent(RepeatObj.useList.data, complete(this));
-        } else
-        if (option === 'Save') {
-            console.log('submit() ' + JSON.stringify(RepeatObj.useList.objects));
-//            this.changeState(obj, false);
-        } else
-        if (option === 'Cancel') {
-//            this.changeState(obj, false);
         }
     }
     that.action = function (callback) {

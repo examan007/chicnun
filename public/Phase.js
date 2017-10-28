@@ -54,7 +54,7 @@ function PhaseSave(classname) {
     }
     return (phase);
 }
-function PhaseCancel(classname) {
+function PhaseBack(classname) {
     var phase = new PhaseObj(classname);
     phase.initiate = function (obj) {
         console.log(phase.Classname + '.initiate');
@@ -63,7 +63,7 @@ function PhaseCancel(classname) {
     }
     return (phase);
 }
-function PhaseDestroy(classname) {
+function PhaseCancel(classname) {
     var phase = new PhaseObj(classname);
     phase.initiate = function (obj) {
         obj.savecomplete = executePhase(phase);
