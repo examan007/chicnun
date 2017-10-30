@@ -568,15 +568,10 @@ UserObj.controller('UseController', ['$scope', function ($scope) {
                 xhr.setRequestHeader("Authorization", "Basic " + btoa(username + ":" + password));
             });
         }
-        if (useList.debug < 1) { } else
+        if (typeof(useList.updateObj) === 'undefined') {} else
         try {
-            var mom = new moment();
-            var obj = {
-                key: 'create',
-                value: mom.format()
-            }
-            data.push(obj);
-            console.log('data=' + JSON.stringify(data));
+            data.push(useList.updateObj);
+            delete (useList.updateObj);
         } catch (e) {
             console.log(e);
         }
@@ -594,6 +589,9 @@ UserObj.controller('UseController', ['$scope', function ($scope) {
                 value: useList.sequence
             }
             data.push(obj);
+        }
+        if (useList.debug < 1) { } else {
+            console.log('data=' + JSON.stringify(data));
         }
         $.ajax({
             url: filename,

@@ -45,6 +45,11 @@ function executePhase(pobj) {
 function PhaseSave(classname) {
     var phase = new PhaseObj(classname);
     phase.initiate = function (obj) {
+        var mom = new moment();
+        RepeatObj.useList.updateObj = {
+            key: 'create',
+            value: mom.format()
+        }
         RepeatObj.useList.operation = 'SaveUser';
         RepeatObj.useList.sequence = Application.CurrentControl.sequence;
         if (typeof (Controller.CurrentObj.Calendar) === 'undefined') { } else {

@@ -397,8 +397,7 @@ function EventListObj(id) {
 	            allDay: false,
 	            title: '',
 	            backgroundColor: 'transparent',
-	            color: '#000080',
-	            create: mom.format()
+	            color: '#000080'
 	        }
 	        if (Controller.StylistUserId.length > 0) {
     	        newEvent.stylist = Controller.StylistUserId;
