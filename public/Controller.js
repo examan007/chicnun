@@ -115,7 +115,7 @@ var Application = {
                     newcontrol.Name = args[2];
                     newcontrol.initialize(obj);
                     Application.CurrentControl = newcontrol;
-                    Application.  writeStatus(this.CurrentControl.Classname);
+                    // Application.writeStatus(this.CurrentControl.Classname);
                     done = true;
                 }
             } while (!done);

@@ -59,6 +59,19 @@ function PhaseSave(classname) {
     }
     return (phase);
 }
+function PhaseCreate(classname) {
+    var phase = new PhaseObj(classname);
+    phase.initiate = function (obj) {
+        console.log('phase.initiate(); executing...!')
+        var mom = new moment();
+        RepeatObj.useList.updateObj = {
+            key: 'create',
+            value: mom.format()
+        }
+        return (false);
+    }
+    return (phase);
+}
 function PhaseBack(classname) {
     var phase = new PhaseObj(classname);
     phase.initiate = function (obj) {
