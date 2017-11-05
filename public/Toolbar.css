@@ -1,6 +1,12 @@
 ﻿button:focus {
     outline:0;
 }
+#Toolbar {
+    overflow: hidden;
+}
+#Toolbar-Option {
+    display: none;
+}
 .Toolbar-Template {
     display: none;
 }
@@ -13,7 +19,7 @@
     width: 100%;
     background-color: #000080;
     color: #8E35EF;
-    border-color: #8E35EF;
+    border-color: gold;
     font-size: xx-large;
 }
 .Toolbar-Button-Selected:hover {

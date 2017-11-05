@@ -812,9 +812,8 @@ var RepeatObj = {
             }
         }
     },
-    addList: function (tempid, jsonfilename, readyfunc) {
-        var funcname = 'RepeatObj.addList()';
-        var listobj = null;
+    getDataKey: function (jsonfilename) {
+        var funcname = 'RepeatObj.getDataKey()';
         var key = 'key';
         try {
             var val;
@@ -825,6 +824,12 @@ var RepeatObj = {
         } catch (e) {
             alert(funcname + e.toString());
         }
+        return (key);
+    },
+    addList: function (tempid, jsonfilename, readyfunc) {
+        var funcname = 'RepeatObj.addList()';
+        var key = RepeatObj.getDataKey(jsonfilename);
+        var listobj = null;
         if ((listobj = new ListDataObj(tempid)) == null) {
             console.log(funcname + '(); Error in ' + funcname + '; unable to create ListObj');
         } else {

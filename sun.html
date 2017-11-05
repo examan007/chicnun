@@ -1,0 +1,155 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.css" />
+    <link rel="stylesheet" href="/public/base.css" />
+    <link rel="stylesheet" href="/public/Toolbar.css" />
+    <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/1.0.3/angular-ui-router.min.js"></script>
+    <script src="public/UIRouter.js"></script>
+    <script src="services/people.js"></script>
+
+    <style>
+        .active {
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <script>
+    </script>
+    <div id="Toolbar" class="smalltool" ng-app="routerApp">
+        <div ng-controller="UIRouterController as UIRouter">
+            <table id="Toolbar-Table">
+                <tr>
+                    <td ng-repeat="obj in UIRouter.objects">
+                        <button ui-sref="{{obj.Name}}" ui-sref-active="active" class="Toolbar-Button">
+                            <span id="Toolbar-Key-{{obj.Key}}" class="Toolbar-Class">
+                                {{obj.Key}}
+                            </span>
+                        </button>
+                    </td>
+                </tr>
+            </table>
+            <ui-view></ui-view>
+            <div>
+                <span id="UIRouterUpdate" ng-click="load()"></span>
+            </div>
+        </div>
+    </div>
+    <div id="divWrap" ng-app="useApp">
+        <div id="Account" style="display:block">
+            <div ng-controller="UseController as useList">
+                <h2 class="{{useList.title}}-Header">{{useList.title}}</h2>
+                <form name="{{useList.title}}-Form" method="post" ng-submit="useList.validate(this);" target="_blank">
+                    <div id="{{useList.title}}-Form-Wrap">
+                        <table id="{{useList.title}}-Table">
+                            <tr ng-repeat="obj in useList.objects">
+                                <td class="{{useList.title}}-Attribute" colspan="1">
+                                    <span class="done-{{obj.name}}">{{obj.name}}:&nbsp;</span>
+                                </td>
+                                <td class="{{useList.title}}-Input" colspan="1">
+                                    <input id="{{useList.title}}-Input-{{obj.name}}"
+                                           class="{{useList.title}}-Input-{{obj.type}}"
+                                           name="{{obj.name}}"
+                                           type="{{obj.type}}"
+                                           value="{{obj.value}}"
+                                           ng-model="obj.value"
+                                           ng-keydown="useList.onKeydown(obj);"
+                                           ng-keyup="useList.onKeyup(obj);"
+                                           ng-focus="useList.onFocus(obj);"
+                                           ng-blur="useList.onBlur(obj);" />
+                                    <div id="{{useList.title}}-Text-{{obj.name}}"
+                                         class="{{useList.title}}-Text-{{obj.type}}">
+                                        {{obj.value === "false" ? obj.alttext : obj.helptext}}
+                                    </div>
+                                </td>
+                                <td></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div>
+                        &nbsp;
+                    </div>
+
+                    <table id="{{useList.title}}-Data-Table">
+                        <tr>
+                            <td ng-repeat="obj in useList.actions">
+                                <button class="Toolbar-Button"
+                                        id="{{useList.title}}-Save-{{obj}}"
+                                        onclick="Controller.select(this)">
+                                    <span id="Save-Span">
+                                        {{obj}}
+                                    </span>
+                                </button>
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+                <div id="{{useList.title}}-Modal" class="modal">
+                    <div class="modal-content">
+                        <span class="close"></span>
+                        <span class="close"></span>
+                        <p class="{{useList.title}}-Model-Entry" ng-repeat="obj in useList.results"><b>{{obj.name}}:</b>&nbsp;{{obj.message}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        var exports = new Object();
+        var ScrollGovernor = {
+            stopCurrent: function () { },
+            registerScroll: function () { },
+            total: 0
+        };
+        function scrollController(element) {
+        }
+        var Application = {
+            Controller: {
+                Classname: 'Service',
+                sequence: 0
+            },
+            getOptionEntry: function () {
+                return ({
+                    entry: {
+                        Action: 'Done'
+                    }
+                });
+            }
+        }
+        var Controller = {
+            UserId: 0,
+            Password: 'nginx',
+            options: function (obj) {
+                console.log('options' + JSON.stringify(obj));
+            },
+            select: function (obj) {
+                console.log('select' + JSON.stringify(obj));
+            }
+        }
+    </script>
+    <script type="text/javascript" src="/public/Parameters.js?1002"></script>
+    <script type="text/javascript" src="/public/RepeatObj.js?1002"></script>
+    <script type="text/javascript" src="/public/UserObj.js?1002"></script>
+    <script type="text/javascript" src="/public/modal.js?1002"></script>
+    <script type="text/javascript" src="/public/services.js?1002"></script>
+    <script>
+        ParamObj.getParametersData( function () {
+            var toolbar = RepeatObj.addList('uirouter', '/data/Toolbar.json', function () {
+                console.log('toolbar=' + JSON.stringify(toolbar.DataMap.map));
+                UIRouter.update(toolbar.DataMap.map);
+            });
+        });
+        execute_routerApp();
+        startPeopleService();
+        config_routerApp();
+        addServices();
+    </script>
+
+</body>
+</html>

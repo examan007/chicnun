@@ -72,7 +72,7 @@ var ParamObj = {
     },
     getParametersData: function (callback) {
         console.log('ParamObj(); requesting...');
-        this.getData('/data/Parameters.json', callback); //?nocache=' + (new Date()).getTime);
+        ParamObj.getData('/data/Parameters.json', callback); //?nocache=' + (new Date()).getTime);
 //        $.getJSON('../data/Parameters.json?nocache=' + (new Date()).getTime(), function (data) {
 //           ParamObj.getData(data);
 //        });
