@@ -81,7 +81,7 @@ function PhaseBack(classname) {
     }
     return (phase);
 }
-function PhaseCancel(classname) {
+function PhaseDiscard(classname) {
     var phase = new PhaseObj(classname);
     phase.initiate = function (obj) {
         obj.savecomplete = executePhase(phase);

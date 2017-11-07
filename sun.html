@@ -1,13 +1,35 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.css" />
-    <link rel="stylesheet" href="/public/base.css" />
-    <link rel="stylesheet" href="/public/Toolbar.css" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="viewport" content="initial-scale=1.0" />
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="https://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.css" />
+    <link rel="stylesheet" type="text/css" href="/public/base.css" />
+    <link rel="stylesheet" type="text/css" href="/public/Toolbar.css" />
+    <link rel="stylesheet" type="text/css" href="/public/ScrollBar.css?1002" />
+    <link rel="stylesheet" type="text/css" href="/public/StyleUnow.css?1002" />
+    <link rel="stylesheet" type="text/css" href="/public/StyleUfonts.css?1002" />
+    <link rel="stylesheet" type="text/css" href="/public/Dropdown.css?1002" />
+    <link rel="stylesheet" type="text/css" href="/public/Selection.css?1002" />
+    <link rel="stylesheet" type="text/css" href="/public/Scope.css?1002" />
+    <link rel="stylesheet" type="text/css" href="/public/modal.css?1002" />
+    <link rel="stylesheet" type="text/css" href="/public/UserObj.css?1002" />
+    <link rel="stylesheet" type="text/css" href="/public/Account.css?1002" />
+    <link rel="stylesheet" type="text/css" href="/public/Booking.css?1002" />
+
     <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/1.0.3/angular-ui-router.min.js"></script>
+
+    <link href='/libs/fullcalendar.min.css' rel='stylesheet' />
+    <link href='/libs/fullcalendar.print.min.css' rel='stylesheet' media='print' />
+
+    <script type='text/javascript' src='libs/lib/moment.min.js'></script>
+    <script type='text/javascript' src='libs/fullcalendar.js'></script>
+    <script type='text/javascript' src='libs/gcal.js'></script>
+
     <script src="public/UIRouter.js"></script>
     <script src="services/people.js"></script>
 
@@ -42,7 +64,26 @@
         </div>
     </div>
     <div id="divWrap" ng-app="useApp">
-        <div id="Account" style="display:block">
+        <div id="Booking" style="display:block">
+            <script type='text/javascript'>
+            $(document).ready(function() {
+                $('#calendar').fullCalendar({
+                    googleCalendarApiKey: 'AIzaSyAe_wU0qWncv4FBkk_HWc3YM6RhKlWegXk',
+                    events: {
+                        googleCalendarId: 'exajames@gmail.com'
+                    },
+                    googleCalendarError: function (err) {
+                        alert('googleCalendarError' + JSON.stringify(err));
+                    },
+                    defaultView: 'agendaWeek',
+                    allDaySlot: false,
+               		displayEventTime: false
+                });
+            });
+            </script>
+            <div id="calendar"></div>
+        </div>
+        <div id="Account" style="display:none">
             <div ng-controller="UseController as useList">
                 <h2 class="{{useList.title}}-Header">{{useList.title}}</h2>
                 <form name="{{useList.title}}-Form" method="post" ng-submit="useList.validate(this);" target="_blank">

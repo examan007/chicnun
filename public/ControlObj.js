@@ -314,7 +314,7 @@ function BookingObj() {
         var option = args[2];
         this.Action = option;
         console.log('submit() [' + option + ']');
-        if (option === 'Cancel') {
+        if (option === 'Discard') {
             function complete(control) {
                 var lcontrol = control;
                 var lobj = obj;
