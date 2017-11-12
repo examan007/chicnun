@@ -1,8 +1,8 @@
 
-function addServicesList() {
+function addServicesList(name, file) {
     angular.bootstrap(document.getElementById("divWrap"), ['useApp']);
-    RepeatObj.addList(name, '/data/Service.json', function () {
-        showService('Service');
+    RepeatObj.addList(name, file, function () {
+        showService(name);
         function showService(name) {
             console.log(name + ' initialize(); complete');
             RepeatObj.useList.title = name;
@@ -42,7 +42,7 @@ function addListObj(tempid, jsonfilename, readyfunc) {
 }
 function addServices() {
    //restoreTemp(addServicesList);
-   addServicesList();
+   addServicesList('Service', '/data/Service.json');
 }
 
 

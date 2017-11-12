@@ -25,6 +25,7 @@
 .close {
     color: #aaa;
     float: right;
+    text-align: center;
     font-size: 28px;
     font-weight: bold;
 }

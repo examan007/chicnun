@@ -2,7 +2,8 @@
 var UserObj = angular.module('useApp', []);
 UserObj.controller('UseController', ['$scope', function ($scope) {
     var useList = this;
-    RepeatObj.useList = this;
+    useList.scope = $scope;
+    RepeatObj.useList = useList;
     useList.debug = 1;
     useList.title = 'New';
     useList.panel = 'Account';
@@ -21,11 +22,20 @@ UserObj.controller('UseController', ['$scope', function ($scope) {
     useList.complete = null;
     useList.iregex = null;
     useList.operation = null;
-    useList.dialog = new ModalObj(useList.panel + '-Modal');
-    useList.span = document.getElementsByClassName("close")[1];
-    useList.span.onclick = function () {
-        useList.dialog.modal.style.display = "none";
+    useList.setModal = function (sectionname) {
+        useList.dialog = new ModalObj(sectionname + '-Modal');
+        useList.panel = sectionname;
+        try {
+            useList.span = document.getElementsByClassName("close")[1];
+            useList.span.onclick = function () {
+                useList.dialog.modal.style.display = "none";
+            }
+        } catch (e) {
+            console.log('useList=' + e.toString());
+        }
+        return (useList.dialog);
     }
+    useList.setModal(useList.panel);
     useList.initData = function () {
         if (useList.data == null) {
         } else
@@ -95,11 +105,7 @@ UserObj.controller('UseController', ['$scope', function ($scope) {
     }
     useList.update = function () {
         try {
-            console.log('before triggerHandler');
-            var element = angular.element('#UseUpdate');
-//            console.log(JSON.stringify(element));
-            element.triggerHandler('click');
-            console.log('done triggerHandler');
+            useList.scope.$apply();
         } catch (e) {
             console.log(e);
         }
@@ -174,7 +180,7 @@ UserObj.controller('UseController', ['$scope', function ($scope) {
             console.log('Cannot find map name=[' + mapname + ']');
         } else {
             try {
-                useList.results = [];
+                //useList.results = [];
                 useList.dialog.hide();
             } catch (e) {
                 console.log(e.toString());
@@ -253,8 +259,19 @@ UserObj.controller('UseController', ['$scope', function ($scope) {
         console.log('onKeyup() before testing $scope.value=[' + obj.value + ']');
         obj.precheck = true;
         if (useList.checkAttr(obj, obj.value, 'validate') == false) {
-            if (obj.value.length > 0) {
-                alert('Invalid character!');
+            if (obj.value.length <= 0) {} else
+            if (useList.results.length > 0) {} else {
+                useList.results.push({
+                    name: 'Invalid',
+                    message: 'character typed is not allowed.'
+                });
+            }
+            if (useList.results.length > 0) {
+                try {
+                    useList.dialog.show();
+                } catch (e) {
+                    console.log('onKeyup' + e.toString());
+                }
             }
             obj.value = obj.value.substr(0, obj.value.length - 1);
         }
@@ -322,8 +339,18 @@ UserObj.controller('UseController', ['$scope', function ($scope) {
             obj.message = '';
             return (true);
         }
+        if (typeof (obj.minlength) === 'undefined') {
+            obj.minlength = 0;
+        }
+        if (parseInt(obj.minlength) == 0 && value.length == 0) {
+            ret = success(obj, value);
+        } else
         if (value.length <= 0) {
             obj.message = 'Empty value not allowed.'
+            ret = false;
+        } else
+        if (value.length < parseInt(obj.minlength)) {
+            obj.message = 'Not enough characters.';
             ret = false;
         } else
         if ((ret = isValidCharacter(value)) == false) {
@@ -334,13 +361,6 @@ UserObj.controller('UseController', ['$scope', function ($scope) {
         } else
         if (useList.isInitial(obj, value)) {
             obj.message = 'Value must be entered.'
-            ret = false;
-        } else
-        if (typeof (obj.minlength) === 'undefined') {
-            ret = success(obj, value);
-        } else
-        if (value.length < parseInt(obj.minlength)) {
-            obj.message = 'Not enough characters.';
             ret = false;
         } else {
             ret = success(obj, value);

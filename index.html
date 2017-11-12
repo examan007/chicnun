@@ -33,17 +33,25 @@
     <link rel="stylesheet" type="text/css" href="/public/l3.css" />
     <script type="text/javascript" src="/public/l3.js"></script>
     <script type="text/javascript" src="/libs/jquery.datetimepicker.full.js"></script>
-</head>
-<body class="disable-select">
-    <script>
-        var exports = new Object();
-    </script>
+
     <script type="text/javascript" src="/public/ScrollBar.js?1002"></script>
     <script type="text/javascript" src="/public/Parameters.js?1002"></script>
     <script type="text/javascript" src="/public/RepeatObj.js?1002"></script>
     <script type="text/javascript" src="/public/OptObj.js?1002"></script>
     <script type="text/javascript" src="/public/markerclusterer.js?1002"></script>
     <script type="text/javascript" src="/public/GoogleMap.js?1002"></script>
+</head>
+<body class="disable-select">
+    <script>
+        var exports = new Object();
+    </script>
+    <script type="text/javascript" src="/public/Phase.js?1002"></script>
+    <script type="text/javascript" src="/public/Option.js?1002"></script>
+    <script type="text/javascript" src="/public/Control.js?1002"></script>
+    <script type="text/javascript" src="/public/Controller.js?1002"></script>
+    <script type="text/javascript" src="/public/ControlObj.js?1002"></script>
+    <script type="text/javascript" src="/public/UserObj.js?1002"></script>
+    <script type="text/javascript" src="/public/AutoZoom.js?1002"></script>
     <div id="divWrap">
         <div id="Toolbar"class="smalltool">
             <table id="Toolbar-Table">
@@ -242,15 +250,11 @@
                         </tr>
                     </table>
                 </form>
-                <div>
-                    <span id="UseUpdate" ng-click="function() {}"></span>
-                </div>
                 <div id="Account-Modal" class="modal">
                     <div class="modal-content">
                         <span class="close">&times;</span>
                         <p class="Account-Model-Entry"
                              ng-repeat="obj in useList.results"
-                             ng-model="obj.results"
                             ><b>{{obj.name}}:</b>&nbsp;{{obj.message}}</p>
                     </div>
                 </div>
@@ -277,14 +281,7 @@
         <div id="Statusbar">
         </div>
     </div>
-    <script type="text/javascript" src="/public/Phase.js?1002"></script>
-    <script type="text/javascript" src="/public/Option.js?1002"></script>
-    <script type="text/javascript" src="/public/Control.js?1002"></script>
-    <script type="text/javascript" src="/public/Controller.js?1002"></script>
-    <script type="text/javascript" src="/public/ControlObj.js?1002"></script>
     <script type="text/javascript" src="/public/StyleUnow.js?1002"></script>
-    <script type="text/javascript" src="/public/UserObj.js?1002"></script>
-    <script type="text/javascript" src="/public/AutoZoom.js?1002"></script>
     <script type="text/javascript" src="/public/StyleUCal.js?1002"></script>
     <script>
 //        console.log = function() {}

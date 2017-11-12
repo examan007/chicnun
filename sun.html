@@ -30,12 +30,12 @@
     <script type='text/javascript' src='libs/fullcalendar.js'></script>
     <script type='text/javascript' src='libs/gcal.js'></script>
 
-    <script src="public/UIRouter.js"></script>
-    <script src="services/people.js"></script>
+    <script type="text/javascript" src="public/UIRouter.js"></script>
+    <script type="text/javascript" src="services/people.js"></script>
 
     <style>
         .active {
-            color: red;
+            background-color: #2B65EC;
             font-weight: bold;
         }
     </style>
@@ -43,7 +43,13 @@
 
 <body>
     <script>
+        var exports = new Object();
     </script>
+    <script type="text/javascript" src="/public/Parameters.js?1002"></script>
+    <script type="text/javascript" src="/public/RepeatObj.js?1002"></script>
+    <script type="text/javascript" src="/public/UserObj.js?1002"></script>
+    <script type="text/javascript" src="/public/services.js?1002"></script>
+
     <div id="Toolbar" class="smalltool" ng-app="routerApp">
         <div ng-controller="UIRouterController as UIRouter">
             <table id="Toolbar-Table">
@@ -61,13 +67,23 @@
             <div>
                 <span id="UIRouterUpdate" ng-click="load()"></span>
             </div>
+            <div id="Dropdown">
+                <ul>
+                    <li id="Dropdown-Option" class="Dropdown-Template" style="display:none">
+                        <button class="Dropdown-Button">
+                            <span id="Dropdown-Key" class="Dropdown-Class">
+                            </span>
+                        </button>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
     <div id="divWrap" ng-app="useApp">
-        <div id="Booking" style="display:block">
+        <div id="Schedule" style="display:block">
             <script type='text/javascript'>
             $(document).ready(function() {
-                $('#calendar').fullCalendar({
+                $('#googlecal').fullCalendar({
                     googleCalendarApiKey: 'AIzaSyAe_wU0qWncv4FBkk_HWc3YM6RhKlWegXk',
                     events: {
                         googleCalendarId: 'exajames@gmail.com'
@@ -81,7 +97,7 @@
                 });
             });
             </script>
-            <div id="calendar"></div>
+            <div id="googlecal"></div>
         </div>
         <div id="Account" style="display:none">
             <div ng-controller="UseController as useList">
@@ -141,6 +157,7 @@
             </div>
         </div>
     </div>
+    <script type="text/javascript" src="/public/modal.js?1002"></script>
     <script>
         var exports = new Object();
         var ScrollGovernor = {
@@ -174,16 +191,14 @@
             }
         }
     </script>
-    <script type="text/javascript" src="/public/Parameters.js?1002"></script>
-    <script type="text/javascript" src="/public/RepeatObj.js?1002"></script>
-    <script type="text/javascript" src="/public/UserObj.js?1002"></script>
-    <script type="text/javascript" src="/public/modal.js?1002"></script>
-    <script type="text/javascript" src="/public/services.js?1002"></script>
     <script>
         ParamObj.getParametersData( function () {
             var toolbar = RepeatObj.addList('uirouter', '/data/Toolbar.json', function () {
                 console.log('toolbar=' + JSON.stringify(toolbar.DataMap.map));
-                UIRouter.update(toolbar.DataMap.map);
+                var dropdown = RepeatObj.addList('uioptions', '/data/Dropdown.json', function () {
+                    console.log('dropdown=' + JSON.stringify(dropdown.DataMap.map));
+                    UIRouter.update(toolbar.DataMap.map);
+                });
             });
         });
         execute_routerApp();
