@@ -658,10 +658,10 @@ ListObj.prototype.sendData = function (filename, data, success, failure) {
         dataType: 'json',
         data: JSON.stringify(data),
         success: success,
-        error: function (jqxhr, textStatus, error) {
-            var err = textStatus + ", " + error;
-            //                alert("Request Failed: " + err + ' filename=[' + filename + ']');
-            failure('Request Failed: ' + err + ' filename=[' + filename + ']');
+        error: function (xhr, textStatus, error) {
+            var err = eval("(" + xhr.responseText + ")");
+            console.log('xhr=' + JSON.stringify(err));
+            failure('Error[ ' + JSON.stringify(err) + ']');
         },
         beforeSend: setHeader()
     });

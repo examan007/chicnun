@@ -622,9 +622,10 @@ UserObj.controller('UseController', ['$scope', function ($scope) {
                 success(json);
             },
             error: function (jqxhr, textStatus, error) {
-                var err = textStatus + ", " + error;
-//                alert("Request Failed: " + err + ' filename=[' + filename + ']');
-                failure('Request Failed: ' + err + ' filename=[' + filename + ']');
+                var err = xhr.responseText;
+                console.log("readyState: "+xhr.readyState+"\nstatus: "+xhr.status);
+                console.log("responseText: "+xhr.responseText);
+                failure('Error[ ' + err + ']');
             },
             beforeSend: setHeader()
         });
@@ -697,7 +698,11 @@ UserObj.controller('UseController', ['$scope', function ($scope) {
             if ((ret = Controller.checkForm(
             function (json) {
                 var response = new String(JSON.stringify(json));
-                var result = new String(json.Authentication == false ? response : json.Message);
+                var result = response;
+                if (typeof(json) === 'undefined') {} else
+                if (typeof(json.Authentication) === 'undefined') {} else {
+                    result = new String(json.Authentication == false ? response : json.Message);
+                }
                 console.log('Response: ' + response);
                 if (result.indexOf('tatus') < 0 ||
                     result.indexOf('Success') < 0) {
