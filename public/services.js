@@ -1,7 +1,7 @@
 
 function addServicesList(name, file) {
     angular.bootstrap(document.getElementById("divWrap"), ['useApp']);
-    RepeatObj.addList(name, file, function () {
+    var list = RepeatObj.addList(name, file, function () {
         showService(name);
         function showService(name) {
             console.log(name + ' initialize(); complete');
@@ -14,6 +14,7 @@ function addServicesList(name, file) {
             RepeatObj.useList.initialize(name, true);
         }
     });
+    return (list);
 }
 function ToolbarObj (tempid, key) {
     var listobj = ListDataObj(tempid);
@@ -42,7 +43,7 @@ function addListObj(tempid, jsonfilename, readyfunc) {
 }
 function addServices() {
    //restoreTemp(addServicesList);
-   addServicesList('Service', '/data/Service.json');
+   return (addServicesList('Service', '/data/Service.json'));
 }
 
 
