@@ -258,12 +258,14 @@ UserObj.controller('UseController', ['$scope', function ($scope) {
     useList.onKeyup = function (obj) {
         console.log('onKeyup() before testing $scope.value=[' + obj.value + ']');
         obj.precheck = true;
+        obj.save_minlength = obj.minlength;
+        obj.minlength = 0;
         if (useList.checkAttr(obj, obj.value, 'validate') == false) {
             if (obj.value.length <= 0) {} else
             if (useList.results.length > 0) {} else {
                 useList.results.push({
                     name: 'Invalid',
-                    message: 'character typed is not allowed.'
+                    message: obj.message //'character typed is not allowed.'
                 });
             }
             if (useList.results.length > 0) {
@@ -275,6 +277,7 @@ UserObj.controller('UseController', ['$scope', function ($scope) {
             }
             obj.value = obj.value.substr(0, obj.value.length - 1);
         }
+        obj.minlength = obj.save_minlength;
     }
     useList.onKeydown = function (obj) {
         console.log('onKeydown() before testing $scope.value=[' + obj.value + ']');
