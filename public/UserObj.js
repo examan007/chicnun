@@ -188,11 +188,10 @@ UserObj.controller('UseController', ['$scope', function ($scope) {
             console.log('useList.initialize(' + objects.length + ');');
             useList.objects = objects;
             useList.clearObjects(flag);
-            $scope.$apply(function () {
-                useList.setActions(useList.entry);
-                useList.title = mapname;
-                useList.initData();
-            });
+            useList.setActions(useList.entry);
+            useList.title = mapname;
+            useList.initData();
+            useList.update();
             useList.setFocus(useList.entry);
             console.log('useList.initialize(' + mapname + ') [' + useList.objects.length + ']; done!');
             ret = true;
@@ -324,7 +323,7 @@ UserObj.controller('UseController', ['$scope', function ($scope) {
         if (useList.debug > 1) {
             console.log('reg=[' + JSON.stringify(obj) + ']');
         }
-        const isValidCharacter = ch => {
+        function isValidCharacter (ch) {
             if (typeof (obj.filteregx) === 'undefined') {
                 obj.reg = new RegExp('^[ a-z0-9]+$', 'i');
                 return ch.match(obj.reg) !== null;

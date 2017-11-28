@@ -596,7 +596,7 @@ function AccountObj() {
     that.option = function (entry, option) {
         var funcname = this.Control + '.option';
         RepeatObj.useList.forceActions(entry);
-        console(funcname + JSON.stringify(entry));
+        console.log(funcname + JSON.stringify(entry));
         try {
             if (RepeatObj.useList.initialize(option, false) == true) {
                 this.State = option;

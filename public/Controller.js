@@ -125,7 +125,7 @@ var Application = {
     },
     setState: function (obj, newstate) {
     },   
-    changeState(obj, direction) {
+    changeState: function (obj, direction) {
     },
     writeStatus: function (msg) {
         var funcname = this.Classname + 'writeStatus';
@@ -137,7 +137,7 @@ var Application = {
             element.childNodes[0].textContent = msg;
         }
     },
-    getCurrentControl(ctrlname) {
+    getCurrentControl: function (ctrlname) {
         if (ctrlname != null) {
             ctrlname = 'Control' + ctrlname;
         } else
@@ -148,7 +148,7 @@ var Application = {
         }
         return (Application.Controls[ctrlname]);
     },
-    getCurrentOption(ctrlname) {
+    getCurrentOption: function (ctrlname) {
         var option = null;
         try {
             var control = Application.getCurrentControl(ctrlname);
@@ -158,7 +158,7 @@ var Application = {
         }
         return (option);
     },
-    getOptionEntry(ctrlname) {
+    getOptionEntry: function (ctrlname) {
         var entry = null;
         try {
             var control = Application.getCurrentControl(ctrlname);

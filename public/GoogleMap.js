@@ -24,7 +24,7 @@ var GoogleAPI = {
     replacer: function (key, value) {
         return value;
     },
-    getPosition(latlng) {
+    getPosition: function (latlng) {
         var object = new Object();
         object.lat = parseFloat(latlng.lat);
         object.lng = parseFloat(latlng.lng);
@@ -60,7 +60,7 @@ var GoogleAPI = {
         strokeColor: 'gold',
         strokeWeight: 1,
     },
-    selectMarker(marker) {
+    selectMarker: function (marker) {
         function selectMarker(marker, color) {
             marker.icon.fillColor = color;
             marker.setMap(null);
@@ -77,7 +77,7 @@ var GoogleAPI = {
             ModalInstance.modal.style.display = "none";
         }
     },
-    createMarker(entry, latlng, options) {
+    createMarker: function (entry, latlng, options) {
         var funcname = 'GoogleAPI.createMarker';
         var label = {
             text: this.LabelName,
@@ -160,7 +160,7 @@ var GoogleAPI = {
         }
         return (this.Map);
     },
-    getLatLng(lat, lng) {
+    getLatLng: function(lat, lng) {
         var latlng = {
             lat: lat,
             lng: lng

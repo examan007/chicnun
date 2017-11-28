@@ -344,6 +344,9 @@ var Controller = {
     select: function (obj) {
         var funcname = 'Controller.select';
         var id = obj.id;
+        if (typeof(id) === 'undefined' || id == null) {
+            id = 'NONE-Option';
+        }
         var args = id.split('-');
         console.log(funcname + '(); nodeName=[' + obj.nodeName + '] id=[' + id + ']');
         Application.select(obj);
@@ -585,7 +588,7 @@ var Controller = {
             }
         });
     },
-    handleClick(event, element, flag) {
+    handleClick: function (event, element, flag) {
         console.log('Click, event.pageX=[' + event.pageX + '] event.pageY=[' + event.pageY + ']');
         var zoomlev = AutoZoomObj.zoomLev;
         var bottomEvent = new $.Event("click");
