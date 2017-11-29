@@ -11,7 +11,7 @@
     <link rel="stylesheet" type="text/css" href="/public/ScrollBar.css?1002" />
     <link rel="stylesheet" type="text/css" href="/public/StyleUnow.css?1002" />
     <link rel="stylesheet" type="text/css" href="/public/StyleUfonts.css?1002" />
-    <link rel="stylesheet" type="text/css" href="/public/Dropdown.css?1002" />
+    <link rel="stylesheet" type="text/css" href="/public/UIRDropdown.css?1002" />
     <link rel="stylesheet" type="text/css" href="/public/Selection.css?1002" />
     <link rel="stylesheet" type="text/css" href="/public/Scope.css?1002" />
     <link rel="stylesheet" type="text/css" href="/public/modal.css?1002" />
@@ -39,9 +39,10 @@
             font-weight: bold;
         }
     </style>
+    <link rel="icon" href="/images/newneoz.png?7777" />
 </head>
 
-<body>
+<body class="disable-select">
     <script>
         var exports = new Object();
     </script>
@@ -49,53 +50,60 @@
     <script type="text/javascript" src="/public/RepeatObj.js?1002"></script>
     <script type="text/javascript" src="/public/UserObj.js?1002"></script>
     <script type="text/javascript" src="/public/services.js?1002"></script>
-
+    <script type="text/javascript" src="/public/AutoZoom.js?1002"></script>
     <div id="Toolbar" class="smalltool" ng-app="routerApp">
         <div ng-controller="UIRouterController as UIRouter">
             <table id="Toolbar-Table">
-                <tr>
-                    <td ng-repeat="obj in UIRouter.objects">
-                        <button ui-sref="{{obj.Name}}" ui-sref-active="active" class="Toolbar-Button">
+                <tr ng-mouseleave="UIRouter.setOptions('-')">
+                    <td ng-repeat="obj in UIRouter.objects"
+                        ng-mouseover="UIRouter.select(obj, null);">
+                        <button class="Toolbar-Button" ng-click="UIRouter.checkClick($event, obj);"
+                                 ui-sref="{{obj.Name}}" ui-sref-active="selected">
                             <span id="Toolbar-Key-{{obj.Key}}" class="Toolbar-Class">
                                 {{obj.Key}}
                             </span>
                         </button>
+                        <div id="Dropdown">
+                            <ul>
+                                <li ng-repeat="opt in UIRouter.options[obj.Key]"
+                                    id="Option-{{obj.Key}}-{{opt.Key}}" style="display:none"
+                                    ng-mouseover="UIRouter.execopt(obj, opt, true);"
+                                    ng-mouseout="UIRouter.execopt(obj, opt, false);">
+                                    <div id="Dropdown-Option-{{opt.Key}}" class="Dropdown-Instance-{{obj.Key}}">
+                                        <button class="Dropdown-Button"
+                                            ui-sref="{{opt.Name}}" ui-sref-active="optioned">
+                                            <span id="Dropdown-Key-{{opt.Key}}" class="Dropdown-Class">
+                                                {{opt.Key}}
+                                            </span>
+                                        </button>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
                     </td>
                 </tr>
             </table>
+
             <ui-view></ui-view>
-            <div>
-                <span id="UIRouterUpdate" ng-click="load()"></span>
-            </div>
-            <div id="Dropdown">
-                <ul>
-                    <li id="Dropdown-Option" class="Dropdown-Template" style="display:none">
-                        <button class="Dropdown-Button">
-                            <span id="Dropdown-Key" class="Dropdown-Class">
-                            </span>
-                        </button>
-                    </li>
-                </ul>
-            </div>
         </div>
     </div>
     <div id="divWrap" ng-app="useApp">
         <div id="Schedule" style="display:block">
             <script type='text/javascript'>
-            $(document).ready(function() {
-                $('#googlecal').fullCalendar({
-                    googleCalendarApiKey: 'AIzaSyAe_wU0qWncv4FBkk_HWc3YM6RhKlWegXk',
-                    events: {
-                        googleCalendarId: 'exajames@gmail.com'
-                    },
-                    googleCalendarError: function (err) {
-                        alert('googleCalendarError' + JSON.stringify(err));
-                    },
-                    defaultView: 'agendaWeek',
-                    allDaySlot: false,
-               		displayEventTime: false
+                $(document).ready(function () {
+                    $('#googlecal').fullCalendar({
+                        googleCalendarApiKey: 'AIzaSyAe_wU0qWncv4FBkk_HWc3YM6RhKlWegXk',
+                        events: {
+                            googleCalendarId: 'exajames@gmail.com'
+                        },
+                        googleCalendarError: function (err) {
+                            alert('googleCalendarError' + JSON.stringify(err));
+                        },
+                        defaultView: 'agendaWeek',
+                        allDaySlot: false,
+                        displayEventTime: false
+                    });
                 });
-            });
             </script>
             <div id="googlecal"></div>
         </div>
@@ -192,15 +200,6 @@
         }
     </script>
     <script>
-        ParamObj.getParametersData( function () {
-            var toolbar = RepeatObj.addList('uirouter', '/data/Toolbar.json', function () {
-                console.log('toolbar=' + JSON.stringify(toolbar.DataMap.map));
-                var dropdown = RepeatObj.addList('uioptions', '/data/Dropdown.json', function () {
-                    console.log('dropdown=' + JSON.stringify(dropdown.DataMap.map));
-                    UIRouter.update(toolbar.DataMap.map);
-                });
-            });
-        });
         execute_routerApp();
         startPeopleService();
         config_routerApp();
