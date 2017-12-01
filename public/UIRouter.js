@@ -1,5 +1,7 @@
 var UIRouterModule = angular.module('routerApp', ['ui.router']);
 var UIRouter = null;
+var UIRToolbar = null;
+var UIRDropdown = null;
 function execute_routerApp() {
     UIRouterModule.controller('UIRouterController', ['$scope', function ($scope) {
         UIRouter = this;
@@ -13,15 +15,6 @@ function execute_routerApp() {
         UIRouter.update = function () {
             try {
                 UIRouter.scope.$apply();
-                preventLongPressMenu(document.getElementsByTagName('div'));
-                function preventLongPressMenu(nodes) {
-                    for(var i=0; i<nodes.length; i++){
-                        nodes[i].ontouchstart = absorbEvent_;
-                        nodes[i].ontouchmove = absorbEvent_;
-                        nodes[i].ontouchend = absorbEvent_;
-                        nodes[i].ontouchcancel = absorbEvent_;
-                    }
-                }
             } catch (e) {
                 console.log(e);
             }
@@ -79,11 +72,37 @@ function execute_routerApp() {
                 UIRouter.CheckState = obj.Key;
             }
         }
+        UIRouter.initializeComplete = function () {
+            function initialize() {
+                return (function () {
+                   UIRouter.initData(UIRToolbar.DataMap.map, UIRDropdown.DataMap.map);
+                });
+            }
+            window.setTimeout(initialize(), 1000);
+        }
     }]);
+}
+function startApplication() {
+    ParamObj.getParametersData( function () {
+        UIRToolbar = RepeatObj.addList('uirouter', '/data/Toolbar.json', function () {
+            console.log('toolbar=' + JSON.stringify(UIRToolbar.DataMap.map));
+            UIRDropdown = RepeatObj.addList('uioptions', '/data/Dropdown.json', function () {
+                console.log('dropdown=' + JSON.stringify(UIRDropdown.DataMap.map));
+                UIRouter.initializeComplete();
+            });
+        });
+    });
+execute_routerApp();
+config_routerApp();
+addServices();
+}
+function config_routerApp() {
+    console.log('config_routerApp(); ');
     optioncomp('search', '-Search')
     optioncomp('booking', '-Booking')
     optioncomp('account', '-Account')
     function optioncomp (objname, tagname) {
+        console.log('optioncomp objname=[' + objname + ']');
         UIRouterModule.component(objname, {
           template:  '',
           controller: function() {
@@ -92,41 +111,6 @@ function execute_routerApp() {
           }
         });
     }
-    UIRouterModule.component('searchx', {
-      template:  '<h3>{{$ctrl.greeting}} Solar System!</h3>' +
-                 '<button ng-click="$ctrl.toggleGreeting()">toggle greeting</button>',
-           
-      controller: function() {
-        console.log('search');
-        this.toggleGreeting = function() {
-          this.greeting = (this.greeting == 'hello') ? 'whats up' : 'hello'
-        }
-      }
-    });
-    UIRouterModule.component('bookingx', {
-      bindings: { people: '<' },
-
-      template: '<h3>Some people:</h3>' +
-                '<ul>' +
-                '  <li ng-repeat="person in $ctrl.people">' +
-                '    <a ui-sref="person({ personId: person.id })">' +
-                '      {{person.name}}' +
-                '    </a>' +
-                '  </li>' +
-                '</ul>'
-    })
-    ParamObj.getParametersData( function () {
-        var toolbar = RepeatObj.addList('uirouter', '/data/Toolbar.json', function () {
-            console.log('toolbar=' + JSON.stringify(toolbar.DataMap.map));
-            var dropdown = RepeatObj.addList('uioptions', '/data/Dropdown.json', function () {
-                console.log('dropdown=' + JSON.stringify(dropdown.DataMap.map));
-                UIRouter.initData(toolbar.DataMap.map, dropdown.DataMap.map);
-            });
-        });
-    });
-}
-function config_routerApp() {
-    console.log('config_routerApp(); ');
     UIRouterModule.config(function($stateProvider) {
         var searchState = {
             name: 'search',

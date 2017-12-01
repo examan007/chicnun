@@ -34,6 +34,19 @@
     border-color: #8E35EF;
     font-weight: bold;
 }
+.selected:hover {
+    width: 100%;
+    background-color: transparent;
+    color: #000080;
+    border: none;
+    border-top: solid;
+    border-left: solid;
+    border-right: solid;
+    border-color: #8E35EF;
+    font-weight: bold;
+    font-size: x-large;
+    height: 50px;
+}
 .Toolbar-Button-Selected {
     width: 100%;
     background-color: transparent;
@@ -45,6 +58,7 @@
     border-color: #8E35EF;
     font-weight: bold;
     font-size: x-large;
+    height: 50px;
 }
 #Toolbar-Table {
     table-layout:fixed;

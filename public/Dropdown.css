@@ -3,10 +3,13 @@
 }
 #Dropdown {
     position: absolute;
-    top: 34px;
+    top: 50px;
     z-index: 10;
     margin-left: 2%;
     width: 32%
+}
+.Dropdown-Button {
+    height: 50px;
 }
 .Dropdown-Instance-Search {
     position: relative;
