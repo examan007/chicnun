@@ -10,6 +10,18 @@
     font-weight: bold;
     font-size: x-large;
 }
+.activeobj {
+    width: 100%;
+    background-color: transparent;
+    color: #000080;
+    border: none;
+    border-top: solid;
+    border-left: solid;
+    border-right: solid;
+    border-color: darkgoldenrod;
+    font-weight: bold;
+    font-size: x-large;
+}
 button:focus {
     outline:0;
 }

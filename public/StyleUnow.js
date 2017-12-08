@@ -228,7 +228,6 @@ var Controller = {
             }
         });
     },
-
     setControl: function (name) {
         var funcname = this.ClassObj + '.setControl';
         var existing = Controller.Controls[name];
@@ -782,7 +781,56 @@ var Controller = {
         }
         return (ret);
     },
-    startApplication: function () {
+    startApp: function () {
+        RepeatObj.addList('Stylist', '/data/stylist.json', function () { });
+        RepeatObj.addList('Selection', '/data/Selection.json', Controller.readySelection);
+        RepeatObj.addList('Edit', '/data/Edit.json', function () {
+            console.log('Edit initialize(); complete');
+        });
+        RepeatObj.addList('New', '/data/New.json', function () {
+            console.log('New initialize(); complete');
+        });
+        RepeatObj.addList('Login', '/data/Login.json', function () {
+            console.log('Login initialize(); complete');
+            var cookie = new ListObj('Cookie');
+            cookie.processData = function (json) {
+                Controller.authtoken = json['Authtoken'];
+                console.log('cookie=' + JSON.stringify(this.authtoken));
+            }
+            cookie.ReadyFunc = function (list) {
+                Controller.UserId = 0;
+                Controller.Username = 'nginx';
+                Controller.Password = 'nginx';
+                try {
+                    Controller.UserId = Controller.authtoken['username'];
+                    Controller.Password = Controller.authtoken['password'];
+                    console.log('Ready! UserId=[' + Controller.UserId + ']');
+                    Controller.select({
+                        id: 'Toolbar-Option-Booking-Week',
+                        selected: true
+                    });
+                    Controller.select({
+                        id: 'Toolbar-Option-Search',
+                        selected: true
+                    });
+                } catch (e) {
+                    console.log('Ready=' + e.toString());
+                }
+            }
+            cookie.handleFailure = function (err) {
+                console.log('err='+ JSON.stringify(err));
+            }
+            cookie.getData( '/private');
+        });
+        RepeatObj.addList('Event', '/data/Event.json', function () {
+            var eventid = getParameterByName('eventid');
+            var selectid = getParameterByName('select');
+            Controller.select({
+                id: selectid,
+                selected: true,
+                eventid: eventid
+            });
+        });
         function getParameterByName(name) {
             var url = window.location.href;
             name = name.replace(/[\[\]]/g, "\\$&");
@@ -794,8 +842,9 @@ var Controller = {
             console.log(name + '=[' + value + ']');
             return (value);
         }
+   },
+    startApplication: function () {
         ParamObj.getParametersData( function () {
-            RepeatObj.addList('Stylist', '/data/stylist.json', function () { });
             RepeatObj.addList('Toolbar', '/data/Toolbar.json', function () {
                 Controller.readyToolbar();
                 RepeatObj.addList('Dropdown', '/data/Dropdown.json', function () {
@@ -803,54 +852,7 @@ var Controller = {
                     Application.initialize();
                 });
             });
-            RepeatObj.addList('Selection', '/data/Selection.json', Controller.readySelection);
-            RepeatObj.addList('Edit', '/data/Edit.json', function () {
-                console.log('Edit initialize(); complete');
-            });
-            RepeatObj.addList('New', '/data/New.json', function () {
-                console.log('New initialize(); complete');
-            });
-            RepeatObj.addList('Login', '/data/Login.json', function () {
-                console.log('Login initialize(); complete');
-                var cookie = new ListObj('Cookie');
-                cookie.processData = function (json) {
-                    Controller.authtoken = json['Authtoken'];
-                    console.log('cookie=' + JSON.stringify(this.authtoken));
-                }
-                cookie.ReadyFunc = function (list) {
-                    Controller.UserId = 0;
-                    Controller.Username = 'nginx';
-                    Controller.Password = 'nginx';
-                    try {
-                        Controller.UserId = Controller.authtoken['username'];
-                        Controller.Password = Controller.authtoken['password'];
-                        console.log('Ready! UserId=[' + Controller.UserId + ']');
-                        Controller.select({
-                            id: 'Toolbar-Option-Booking-Week',
-                            selected: true
-                        });
-                        Controller.select({
-                            id: 'Toolbar-Option-Search',
-                            selected: true
-                        });
-                    } catch (e) {
-                        console.log('Ready=' + e.toString());
-                    }
-                }
-                cookie.handleFailure = function (err) {
-                    console.log('err='+ JSON.stringify(err));
-                }
-                cookie.getData( '/private');
-            });
-            RepeatObj.addList('Event', '/data/Event.json', function () {
-                var eventid = getParameterByName('eventid');
-                var selectid = getParameterByName('select');
-                Controller.select({
-                    id: selectid,
-                    selected: true,
-                    eventid: eventid
-                });
-            });
+            Controller.startApp();
         });
     }
 }

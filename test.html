@@ -9,7 +9,7 @@
     <link rel="stylesheet" type="text/css" href="/libs/lib/jquery.mobile-1.0.min.css" />
     <link rel="stylesheet" type="text/css" href="/public/base.css" />
     <link rel="stylesheet" type="text/css" href="/public/ScrollBar.css?1002" />
-    <link rel="stylesheet" type="text/css" href="/public/StyleUnow.css?1002" />
+    <link rel="stylesheet" type="text/css" href="/public/StyleUnow.css?1002"/>
     <link rel="stylesheet" type="text/css" href="/public/StyleUfonts.css?1002" />
     <link rel="stylesheet" type="text/css" href="/public/Toolbar.css?1002" />
     <link rel="stylesheet" type="text/css" href="/public/UIRDropdown.css?1002" />
@@ -20,6 +20,7 @@
     <link rel="stylesheet" type="text/css" href="/public/Account.css?1002" />
     <link rel="stylesheet" type="text/css" href="/public/Booking.css?1002" />
     <link rel='stylesheet' href='/libs/fullcalendar.css' />
+    <link rel="stylesheet" type="text/css" href="/libs/jquery.datetimepicker.min.css" />
     <script src="/libs/lib/jquery.min.js"></script>
     <script src="/libs/lib/angular.min.js"></script>
     <script src="/libs/lib/angular-ui-router.min.js"></script>
@@ -34,8 +35,9 @@
     <script type="text/javascript" src="/libs/lib/jquery.easing.min.js"></script>
     <link rel="stylesheet" type="text/css" href="/public/l3.css" />
     <script type="text/javascript" src="/public/l3.js"></script>
+    <script type="text/javascript" src="/libs/jquery.datetimepicker.full.js"></script>
     <script src='/libs/gcal.js'></script>
-	<script type="text/javascript" src="public/UIRouter.js"></script>
+    <script type="text/javascript" src="public/UIRouter.js"></script>
     <script type="text/javascript" src="services/people.js"></script>
     <script type="text/javascript" src="/public/ScrollBar.js?1002"></script>
     <script type="text/javascript" src="/public/Parameters.js?1002"></script>
@@ -43,8 +45,8 @@
     <script type="text/javascript" src="/public/markerclusterer.js?1002"></script>
     <script type="text/javascript" src="/public/GoogleMap.js?1002"></script>
     <link rel="icon" href="/images/newneoz.png?7777" />
-</head>
 
+</head>
 <body class="disable-select">
     <script>
         var exports = new Object();
@@ -56,7 +58,6 @@
     <script type="text/javascript" src="/public/Controller.js?1002"></script>
     <script type="text/javascript" src="/public/ControlObj.js?1002"></script>
     <script type="text/javascript" src="/public/UserObj.js?1002"></script>
-    <script type="text/javascript" src="/public/services.js?1002"></script>
     <script type="text/javascript" src="/public/AutoZoom.js?1002"></script>
     <div id="Toolbar" class="smalltool" ng-app="routerApp">
         <div ng-controller="UIRouterController as UIRouter">
@@ -96,25 +97,6 @@
         </div>
     </div>
     <div id="divWrap">
-        <div id="Schedule" style="display:none">
-            <script type='text/javascript'>
-                $(document).ready(function () {
-                    $('#googlecal').fullCalendar({
-                        googleCalendarApiKey: 'AIzaSyAe_wU0qWncv4FBkk_HWc3YM6RhKlWegXk',
-                        events: {
-                            googleCalendarId: 'exajames@gmail.com'
-                        },
-                        googleCalendarError: function (err) {
-                            alert('googleCalendarError' + JSON.stringify(err));
-                        },
-                        defaultView: 'agendaWeek',
-                        allDaySlot: false,
-                        displayEventTime: false
-                    });
-                });
-            </script>
-            <div id="googlecal"></div>
-        </div>
         <div id="DomainName" class="largename">
             <table class="toptable" border="0">
                 <tr>
@@ -136,20 +118,23 @@
                     <td>
                         &nbsp;
                     </td>
-                    <td class="title">
+                    <td class="title" >
                         <span id="Selection-Title" class="Selection-Class"
                               onmouseover="Controller.select(this);"
-                              onclick="Controller.select(this);">
+                              onclick="Controller.select(this);"
+                              >
                         </span>
                     </td>
                     <td>
                         &nbsp;
                     </td>
-                    <td class="Selection-Parameter">
+                    <td class="Selection-Parameter" >
                         <table id="Selection-Table" class="Selection-Inputs">
                             <tr>
                                 <td id="Selection-Name" class="Selection-Class"
-                                    onclick="Controller.next(this, 'false');"></td>
+                                    onclick="Controller.next(this, 'false');"
+                                    >
+                                </td>
                             </tr>
                             <tr class="Selection-Filter">
                                 <td>
@@ -215,90 +200,100 @@
         <div id="Action" style="display:none">
             <div>
                 <button id="Back"
-                        onclick="Controller.prev(this)">
-                    <span id="Back-Span">
-                        Back
-                    </span>
+                    onclick="Controller.prev(this)">
+                <span id="Back-Span">
+                    Back
+                </span>
                 </button>
-            </div>
-            <div id="myModal" class="modal">
-                <div class="modal-content">
-                    <span class="close">&times;</span>
-                    <p>Some text in the Modal..</p>
-                    <p>Some text in the Modal..</p>
-                    <p>Some text in the Modal..</p>
-                </div>
             </div>
             <div id="map"></div>
         </div>
+        <div id="Dropdown">
+            <ul>
+                <li id="Dropdown-Option" class="Dropdown-Template" style="display:none"
+                     onclick="Controller.select(this)"
+                     onmouseover="Controller.options(this, true);"
+                     onmouseout="Controller.options(this, false);">
+                    <button class="Dropdown-Button">
+                        <span id="Dropdown-Key" class="Dropdown-Class">
+                        </span>
+                    </button>
+                </li>
+            </ul>
+        </div>
         <div id="Account" style="display:none" ng-app="useApp">
             <div ng-controller="UseController as useList">
-                <h2 class="{{useList.title}}-Header">{{useList.title}}</h2>
-                <form name="{{useList.title}}-Form" method="post" ng-submit="useList.validate(this);" target="_blank">
-                    <div id="{{useList.title}}-Form-Wrap">
-                        <table id="{{useList.title}}-Table">
-                            <tr ng-repeat="obj in useList.objects">
-                                <td class="{{useList.title}}-Attribute" colspan="1">
-                                    <span class="done-{{obj.name}}">{{obj.name}}:&nbsp;</span>
-                                </td>
-                                <td class="{{useList.title}}-Input" colspan="1">
-                                    <input id="{{useList.title}}-Input-{{obj.name}}"
-                                           class="{{useList.title}}-Input-{{obj.type}}"
-                                           name="{{obj.name}}"
-                                           type="{{obj.type}}"
-                                           value="{{obj.value}}"
-                                           ng-model="obj.value"
-                                           ng-keydown="useList.onKeydown(obj);"
-                                           ng-keyup="useList.onKeyup(obj);"
-                                           ng-focus="useList.onFocus(obj);"
-                                           ng-blur="useList.onBlur(obj);" />
-                                    <div id="{{useList.title}}-Text-{{obj.name}}"
-                                         class="{{useList.title}}-Text-{{obj.type}}">
-                                        {{obj.value === "false" ? obj.alttext : obj.helptext}}
-                                    </div>
-                                </td>
-                                <td></td>
-                            </tr>
-                        </table>
-                    </div>
-                    <div>
-                        &nbsp;
-                    </div>
-                    <table id="{{useList.title}}-Data-Table">
+                <h2 class="Account-Header">{{useList.title}}</h2>
+                    <form name="Account-Form" method="post" ng-submit="useList.validate(this);" target="_blank">
+                        <div id="Account-Form-Wrap">
+                            <table id="Account-Table">
+                                <tr ng-repeat="obj in useList.objects">
+                                    <td class="Account-Attribute" colspan="1">
+                                        <span class="done-{{obj.name}}">{{obj.name}}:&nbsp;</span>
+                                    </td>
+                                    <td class="Account-Input" colspan="1">
+                                        <input id="Account-Input-{{obj.name}}"
+                                               class="Account-Input-{{obj.type}}"
+                                               name="{{obj.name}}"
+                                               type="{{obj.type}}"
+                                               value="{{obj.value}}"
+                                               ng-model="obj.value"
+                                               ng-onclick="useList.onClick(obj);"
+                                               ng-keydown="useList.onKeydown(obj);"
+                                               ng-keyup="useList.onKeyup(obj);"
+                                               ng-focus="useList.onFocus(obj);"
+                                               ng-blur="useList.onBlur(obj);" />
+                                            <div id="Account-Text-{{obj.name}}"
+                                               class="Account-Text-{{obj.type}}">
+                                               {{obj.value === "false" ? obj.alttext : obj.helptext}}
+                                            </div>
+                                    </td>
+                                    <td></td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div>
+                            &nbsp;
+                        </div>
+
+                    <table id="Account-Data-Table">
                         <tr>
                             <td ng-repeat="obj in useList.actions">
                                 <button class="Toolbar-Button"
-                                        id="{{useList.title}}-Save-{{obj}}"
+                                        id="Account-Save-{{obj}}"
                                         onclick="Controller.select(this)">
                                     <span id="Save-Span">
                                         {{obj}}
                                     </span>
                                 </button>
                             </td>
+
                         </tr>
                     </table>
                 </form>
-                <div id="{{useList.title}}-Modal" class="modal">
+                <div id="Account-Modal" class="modal">
                     <div class="modal-content">
-                        <span class="close"></span>
-                        <span class="close"></span>
-                        <p class="{{useList.title}}-Model-Entry" ng-repeat="obj in useList.results"><b>{{obj.name}}:</b>&nbsp;{{obj.message}}</p>
+                        <span class="close">&times;</span>
+                        <span class="close">&times;</span>
+                        <p class="Account-Model-Entry"
+                             ng-repeat="obj in useList.results"
+                            ><b>{{obj.name}}:</b>&nbsp;{{obj.message}}</p>
                     </div>
                 </div>
             </div>
-        </div>
+         </div>
         <div id="Booking" style="display: none">
-            <div class="frame horizontal" id="oldH2">
+            <div  class="frame horizontal" id="oldH2">
                 <table class="toptable">
                     <tr>
                         <td width="100%">
                             <ul class="clearfix">
                                 <li>
                                     <div id="calcontainer">
-                                        <div id="calendar"></div>
-                                        <div id="schedule"></div>
+                                    <div id="calendar"></div>
+                                    <div id="schedule"></div>
                                     </div>
-                                </li>
+                               </li>
                             </ul>
                         </td>
                     </tr>
@@ -312,12 +307,9 @@
     <script type="text/javascript" src="/public/StyleUnow.js?1002"></script>
     <script type="text/javascript" src="/public/StyleUCal.js?1002"></script>
     <script>
+//        console.log = function() {}
         startApplication();
-    </script>
-    <script>
-        //        console.log = function() {}
-        //        Controller.startApplication();
-        // tell the embed parent frame the height of the content
+  // tell the embed parent frame the height of the content
         function initializeSly() {
             if (window.parent && window.parent.parent) {
                 window.parent.parent.postMessage(["resultsFrame", {
@@ -336,6 +328,5 @@
             <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1" />
         </form>
     </div>
-
-</body>
+    </body>
 </html>

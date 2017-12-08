@@ -4,7 +4,7 @@ function ControlObj() {
     that.Control = 'Control';
     that.State = 'Initial';
     that.Section = 'Selection';
-    that.Option = new optobj();
+    that.Option = new OptionObj();
     that.checkForm = function (success, failure, data) {
         alert('here');
         return (false);

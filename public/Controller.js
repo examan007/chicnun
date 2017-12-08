@@ -4,6 +4,7 @@ function StateObj (classname) {
     obj.Classname = classname;
     obj.Parent = null;
     obj.uber = [];
+    obj.Name = 'Salon';
     obj.initialize = function (obj) {
         console.log(this.Classname + '.initialize(); obj=' + JSON.stringify(obj));
     }
@@ -24,7 +25,7 @@ var Application = {
     Classname: 'Application',
     CurrentControl: null,
     Controls: [],
-    getCurrentControl: function () {
+    getCurrentControlx: function () {
         var control = Application.CurrentControl;
         var current = null;
         do {
@@ -146,6 +147,9 @@ var Application = {
         } else {
             ctrlname = Application.CurrentControl.Classname;
         }
+        if (typeof(Application.Controls[ctrlname]) === 'undefined') {
+            console.log('Error; CurrentControl not defined!');
+        }
         return (Application.Controls[ctrlname]);
     },
     getCurrentOption: function (ctrlname) {
@@ -154,7 +158,7 @@ var Application = {
             var control = Application.getCurrentControl(ctrlname);
             option = control.Option.Name;
         } catch (e) {
-            console.log('getCurrentOption() ' + e.toString());
+            console.log('getCurrentOption(' + ctrlname + ') ' + e.toString());
         }
         return (option);
     },

@@ -68,14 +68,14 @@ button#Back:hover {
 }
 body
 {
-  background-color: #BE65FF;
+  background-color: white;
   overflow: hidden;
 }
 body::after {
   content: "";
   background: url("../images/dragon-and-unicorn-kali010.5.jpg") no-repeat fixed top;
   background-size: cover;
-  background-color: #BE65FF;
+  background-color: white;
   opacity: 0.28;
   top: 0;
   left: 0;
