@@ -543,13 +543,16 @@ var Controller = {
         Controller.select(element);
     },
     readyToolbar: function () {
+        return;
+    },
+    readyToolbar_x: function () {
         var funcname = 'Controller.readyToolbar';
         console.log(funcname + '(); executing!');
         var element = new Object();
         element.id = 'Toolbar-Option-Search';
         Controller.select(element);
         if (AutoZoomObj.isDevice == true) {
-            Controller.select(element);
+            //Controller.select(element);
         }
     },
     LastEvent: null,
@@ -805,14 +808,16 @@ var Controller = {
                     Controller.UserId = Controller.authtoken['username'];
                     Controller.Password = Controller.authtoken['password'];
                     console.log('Ready! UserId=[' + Controller.UserId + ']');
-                    Controller.select({
-                        id: 'Toolbar-Option-Booking-Week',
-                        selected: true
-                    });
-                    Controller.select({
-                        id: 'Toolbar-Option-Search',
-                        selected: true
-                    });
+                    function initial() {
+                        Controller.select({
+                            id: 'Toolbar-Option-Booking-Week',
+                            selected: true
+                        });
+                        Controller.select({
+                            id: 'Toolbar-Option-Search',
+                            selected: true
+                        });
+                    }
                 } catch (e) {
                     console.log('Ready=' + e.toString());
                 }
@@ -843,13 +848,16 @@ var Controller = {
             return (value);
         }
    },
-    startApplication: function () {
+    startApplication: function (callback) {
         ParamObj.getParametersData( function () {
             RepeatObj.addList('Toolbar', '/data/Toolbar.json', function () {
                 Controller.readyToolbar();
                 RepeatObj.addList('Dropdown', '/data/Dropdown.json', function () {
                     Controller.readyToolbar();
                     Application.initialize();
+                    if (typeof(callback) === 'undefined') {} else {
+                        callback();
+                    }
                 });
             });
             Controller.startApp();

@@ -63,8 +63,8 @@ function execute_routerApp() {
             UIRouter.setOptions('-' + obj.Key);
         }
         UIRouter.execopt = function (obj, opt, flag) {
-            console.log('obj=' + JSON.stringify(obj));
-            console.log('opt=' + JSON.stringify(opt));
+//            console.log('obj=' + JSON.stringify(obj));
+//            console.log('opt=' + JSON.stringify(opt));
         }
         UIRouter.CheckState = '';
         UIRouter.checkClick=  function (event, obj) {
@@ -102,7 +102,7 @@ function startApplication() {
                         UIRouter.initializeComplete();
                     });
                 }
-                window.setTimeout(initializeComplete(), 3000);
+                window.setTimeout(initializeComplete(), 0);
             });
         });
     });
@@ -143,15 +143,23 @@ function config_routerApp() {
         construct('edit', 'account'),
         construct('new', 'account')
     ];
+    var deferredtime = 1000;
     function controller(objname, tagname) {
+        var callback = deferred(objname, tagname);
         return (function () {
-            console.log('component[' + objname + ']');
+            window.setTimeout( callback, deferredtime);
+        });
+    }
+    function deferred(objname, tagname) {
+        return (function () {
+            console.log('component[' + tagname + '/' + objname + ']');
+            deferredtime = 0;
             try {
                 var entry = null;
                 if ((entry = UIRDropdown.DataMap.getEntryWithKey(objname, 'Name')) != null) {
                     console.log('entry=' + JSON.stringify(entry));
                     Controller.select({
-                        id: 'Dropdown-Option-' + entry.Key,
+                        id: 'Dropdown-Option' + '-' + entry.Key,
                         selected: true
                     });
                     Controller.select({
