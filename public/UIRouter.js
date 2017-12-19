@@ -82,8 +82,7 @@ function execute_routerApp() {
                     run();
                     function run() {
                         angular.bootstrap(document.getElementById("Account"), ['useApp']);
-                        Application.initialize();
-                        Controller.startApp();
+                        Controller.startApplication();
                     }    
                 });
             }
@@ -153,6 +152,10 @@ function config_routerApp() {
                     console.log('entry=' + JSON.stringify(entry));
                     Controller.select({
                         id: 'Dropdown-Option-' + entry.Key,
+                        selected: true
+                    });
+                    Controller.select({
+                        id: 'Toolbar-Option' + tagname,
                         selected: true
                     });
                 } else 
