@@ -63,8 +63,8 @@ function execute_routerApp() {
             UIRouter.setOptions('-' + obj.Key);
         }
         UIRouter.execopt = function (obj, opt, flag) {
-//            console.log('obj=' + JSON.stringify(obj));
-//            console.log('opt=' + JSON.stringify(opt));
+            console.log('obj=' + JSON.stringify(obj));
+            console.log('opt=' + JSON.stringify(opt));
         }
         UIRouter.CheckState = '';
         UIRouter.checkClick=  function (event, obj) {
@@ -82,7 +82,8 @@ function execute_routerApp() {
                     run();
                     function run() {
                         angular.bootstrap(document.getElementById("Account"), ['useApp']);
-                        Controller.startApplication();
+                        Application.initialize();
+                        Controller.startApp();
                     }    
                 });
             }
@@ -102,7 +103,7 @@ function startApplication() {
                         UIRouter.initializeComplete();
                     });
                 }
-                window.setTimeout(initializeComplete(), 0);
+                window.setTimeout(initializeComplete(), 1000);
             });
         });
     });
@@ -131,35 +132,27 @@ function config_routerApp() {
         create('booking'),
         create('account'),
         construct('stylist', 'search'),
-        construct('client', 'search'),
         construct('salon', 'search'),
-        construct('event', 'booking'), 
-        construct('service', 'booking'),
+        construct('client', 'search'),
         construct('today', 'booking'),
         construct('week', 'booking'),
         construct('month', 'booking'),
         construct('list', 'booking'),
+        construct('event', 'booking'), 
+        construct('service', 'booking'),
         construct('login', 'account'),
         construct('edit', 'account'),
         construct('new', 'account')
     ];
-    var deferredtime = 1000;
     function controller(objname, tagname) {
-        var callback = deferred(objname, tagname);
         return (function () {
-            window.setTimeout( callback, deferredtime);
-        });
-    }
-    function deferred(objname, tagname) {
-        return (function () {
-            console.log('component[' + tagname + '/' + objname + ']');
-            deferredtime = 0;
+            console.log('component[' + objname + ']');
             try {
                 var entry = null;
                 if ((entry = UIRDropdown.DataMap.getEntryWithKey(objname, 'Name')) != null) {
                     console.log('entry=' + JSON.stringify(entry));
                     Controller.select({
-                        id: 'Dropdown-Option' + '-' + entry.Key,
+                        id: 'Dropdown-Option-' + entry.Key,
                         selected: true
                     });
                     Controller.select({

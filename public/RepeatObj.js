@@ -492,7 +492,7 @@ ListObj.prototype.addEntry = function (entry) {
     if ((newlist = this.getRow(entry, '-Item', 'false')) == null) {
         console.log('' + funcname + '; uanble to getRow [' + this.Name + ']');
     } else
-    if ((parent = this.Template.parentNode) == null) {
+    if (0) { //(parent = this.Template.parentNode) == null) {
         console.log('' + funcname + '; no parent [' + this.Name + ']');
     } else 
     if ((newnode = this.clone(this.Original)) == null) {
@@ -535,7 +535,9 @@ ListObj.prototype.addEntry = function (entry) {
             elements[n].className = valclass + '-' + this.getKey(entry);
         }
         this.Nodes.push(newnode);
-        parent.appendChild(newnode);
+        if ((parent = this.Template.parentNode) != null) {
+            parent.appendChild(newnode);
+        }
 //        console.log(funcname + '(); SUCESS, newnode added!');
     }
 //    console.log(funcname + '(); done!');

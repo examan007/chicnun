@@ -72,11 +72,10 @@ var ParamObj = {
     },
     getParametersData: function (callback) {
         console.log('ParamObj(); requesting...');
-        if (ParamObj.DataMap == null) {
-            ParamObj.getData('/data/Parameters.json', callback); //?nocache=' + (new Date()).getTime);
-        } else {
-            callback();
-        }
+        ParamObj.getData('/data/Parameters.json', callback); //?nocache=' + (new Date()).getTime);
+//        $.getJSON('../data/Parameters.json?nocache=' + (new Date()).getTime(), function (data) {
+//           ParamObj.getData(data);
+//        });
     },
     translateNames: function (names) {
         var newnames = [];
