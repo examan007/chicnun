@@ -50,7 +50,7 @@ var ParamObj = {
         console.log('ParamObj.getData(); requesting...');
         var This = this;
         var username = Controller.UserId; // Username; // 'nginx';
-        var password = Controller.Password; //'Neolation$123';
+        var password = Controller.Password; //'nginx';
         function setHeader(xhr) {
             xhr.setRequestHeader("Authorization", "Basic " + btoa(username + ":" + password));
         }
